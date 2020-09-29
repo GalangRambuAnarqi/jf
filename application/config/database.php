@@ -75,9 +75,9 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'cc.dinus.ac.id',
-	'username' => 'cc',
-	'password' => 'AlphardGanteng',
+	'hostname' => 'localhost',
+	'username' => 'user',
+	'password' => '1',
 	'database' => 'cc_tiket_jobfair',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',

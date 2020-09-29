@@ -104,7 +104,7 @@
               <?php
             }
             ?>
-            
+            <a class="btn btn-success" href='<?=base_url()?>chat/?read=<?=$lowongan[0]['id_perusahaan']?>&idlow=<?=$lowongan[0]['id']?>'><i class="fa fa-comments-o m-right-xs"></i> Tanya</a>
             </center>
           
             <hr>

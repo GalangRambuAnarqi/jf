@@ -69,7 +69,7 @@
 <?php
 if(isset($_GET['read'])){
   $id=$_GET['read'];
-
+ 
   //  $this->ADM->update_data('chat','status'=>'read','id'=>$id);
   $chatcomp=!empty($chatlist)? array_reverse($chatlist[$id]) : "";
 
@@ -131,8 +131,17 @@ if(!empty($chatcomp)){
        <input type="hidden" name="role" value="user">
        <table style="width:100%">
         <tr>
-        <td>
-        <textarea name="isichat" rows="1" cols=100% placeholder="ketik pesan anda" style="width:100%"></textarea>
+        <td> 
+  <?php      
+  $draft=(isset($_GET['idlow'])&&!empty($_GET['idlow']))? 
+  "Salam, Saya ingin menanyakan perihal lowongan '".
+  $this->DATA->
+  getWhereRow('judul_low','lowongan_JF',array('id'=>$_GET['idlow'],'id_perusahaan'=>$id))
+  ->judul_low."' pada perusahaan Bapak/Ibu : <tuliskan>" 
+  : 
+  "";
+  ?>
+        <textarea name="isichat" rows="1" cols=100% placeholder="ketik pesan anda" style="width:100%" autofocus><?=$draft?></textarea>
         </td>
         <td>
          <button type="submit" class="btn btn-success"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
