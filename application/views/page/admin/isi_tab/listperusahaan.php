@@ -88,7 +88,8 @@ if(isset($_GET['act'])&&$_GET['act']=="edit"){
                         <th>No</th>
                           <th>Logo</th>
                           <th>Nama Perusahaan</th>
-                          <th>Nick Name</th>
+                          <th>Username</th>
+                          <th>Password</th>
                           <th>Deskripsi</th>
                           <th>JmlLowongan (click)</th>
                           <th>JmlPelamar (click)</th>
@@ -116,6 +117,7 @@ if(isset($_GET['act'])&&$_GET['act']=="edit"){
                         }?></td>
                       <td><?=$data['nama']?></td>
                       <td><?=$data['nick']?></td>
+                      <td><?=$data['password']?></td>
                       <td width=50%>
                       <center>
                       <a data-toggle="collapse" href="#collapseExample<?=$data['id']?>" role="button" aria-expanded="false" aria-controls="collapseExample">
