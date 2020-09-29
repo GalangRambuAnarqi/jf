@@ -5,6 +5,7 @@
 </style>
     <link href="<?php echo base_url('assets/build/css/chat.css') ?>" rel="stylesheet">
     <?php
+    error_reporting(0);
     $iduser=$this->session->userdata['adm_id'];
     ?>
 <div class="chat_box" id="chat">

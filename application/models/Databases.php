@@ -119,6 +119,16 @@
             return $this->db->get()->result_array();
         }
 
+        function checkinbox($sesid){
+            $this->db->select('receiverid');
+            $this->db->from('chat');
+            $this->db->group_by('receiverid');
+            $this->db->where('senderid',$sesid);
+            $this->db->where('role','perusahaan');
+            $this->db->where('status_sender','unread');
+            return $this->db->get()->num_rows();
+        }
+
         public function getperusahaan($where){
             $this->db->select("b.name,a.id");
             $this->db->from("pelamarJF as a");

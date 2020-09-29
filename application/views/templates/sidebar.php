@@ -12,8 +12,15 @@
       </li>
        <li><a href="<?=base_url()?>comingsoon"><i class="fa fa-search"></i> Cari Kerja </a>
       </li>
-      <!-- <li><a href="<?=base_url()?>chat"><i class="fa fa-comments-o"></i> Chat </a>
-      </li> -->
+      <?php
+      $notif=$this->DATA->checkinbox($this->session->userdata['ses_id']);
+      
+      ?>
+      
+      <li><a href="<?=base_url()?>chat"><i class="fa fa-comments-o"></i> Chat 
+      <?=$notif>0? "<span class='badge badge-danger'>".$notif."</span>" : "";?>
+      </a>
+      </li>
       <!-- <li><a href="<?=base_url()?>listlamaran"><i class="fa fa-list"></i> Daftar Lamaran </a>
       </li> -->
       <!-- <li><a href="<?=base_url()?>scan2apply"><i class="fa fa-search"></i> Lamar </a>

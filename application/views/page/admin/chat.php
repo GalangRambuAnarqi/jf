@@ -1,5 +1,5 @@
    <!-- page content -->
-
+   <?php error_reporting(0);?>
 <link href="<?php echo base_url('assets/build/css/chat.css') ?>" rel="stylesheet">
    <div class="right_col" role="main">
           <div class="">
