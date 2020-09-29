@@ -1,0 +1,99 @@
+
+/* The popup chat - hidden by default */
+.chat-popup {
+display: none;
+position: fixed;
+bottom: 0;
+right: 15px;
+border: 0px solid #f1f1f1;
+margin-bottom: 20px;
+z-index: 9;
+border-radius: 20px;
+}
+
+
+/* Add styles to the form container */
+.form-container {
+max-width: 300px;
+padding: 10px;
+background-color: white;
+border-radius: 20px;
+}
+
+.open-button {
+background-color: purple;
+color: white;
+padding: 16px 20px;
+border: none;
+cursor: pointer;
+opacity: 0.8;
+position: fixed;
+bottom: 23px;
+right: 28px;
+width: 100px;
+}
+
+.open-button2 {
+background-color: white;
+color: black;
+padding: 10px 10px;
+border: solid;
+cursor: pointer;
+position: fixed;
+top: 1%;
+right: 30%;
+width: 200px;
+}
+
+.toggle-box {
+display: none;
+}
+
+.toggle-box + label {
+cursor: pointer;
+display: block;
+font-weight: bold;
+line-height: 21px;
+margin-bottom: 5px;
+}
+
+.toggle-box + label + div {
+display: none;
+margin-bottom: 10px;
+}
+
+.toggle-box:checked + label + div {
+display: block;
+}
+
+.toggle-box + label:before {
+background-color: #4F5150;
+-webkit-border-radius: 10px;
+-moz-border-radius: 10px;
+border-radius: 10px;
+color: #FFFFFF;
+content: ">";
+display: block;
+float: left;
+font-weight: bold;
+height: 20px;
+line-height: 20px;
+margin-right: 5px;
+text-align: center;
+width: 20px;
+}
+
+.toggle-box:checked + label:before {
+content: "\2212";
+}
+
+input[type="file"] {
+display: none !important; 
+}
+.custom-file-upload {
+border: 1px solid #ccc !important;
+display: inline-block !important;
+padding: 6px 12px !important;
+cursor: pointer !important;
+}
+
