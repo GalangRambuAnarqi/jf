@@ -294,7 +294,11 @@ class Peserta extends CI_Controller {
 		}else{
 			$this->session->set_flashdata('pesanchat2','<span class="badge badge-light blink_me"><strong>Terkirim</strong></span>');
 		}
+		if(($idrcv)=='admin'){
 		redirect($_SERVER['HTTP_REFERER']);
+		}else{
+		redirect(base_url().'chat?read='.$idrcv, 'refresh');
+		}
 	}
 
 
