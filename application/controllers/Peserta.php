@@ -297,7 +297,7 @@ class Peserta extends CI_Controller {
 		if(($idrcv)=='admin'){
 		redirect($_SERVER['HTTP_REFERER']);
 		}else{
-		redirect(base_url().'chat?read='.$idrcv, 'refresh');
+		redirect(base_url().'chat?read='.base64_encode($idrcv), 'refresh');
 		}
 	}
 

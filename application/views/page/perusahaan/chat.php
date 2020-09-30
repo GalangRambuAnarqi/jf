@@ -45,7 +45,7 @@
                         <table id="inbox" class="table table-bordered" cellspacing="0" width="100%">
                         <thead>
                         <tr>
-                        <td>Pesan Peserta</td>
+                        <td>Pesan Peserta &nbsp;&nbsp;-&nbsp;&nbsp; <a href="<?=base_url('perusahaan/chat')?>">refresh <i class="fa fa-refresh" aria-hidden="true"></i></a></td>
                         </tr>
                         </thead>
                         <tbody>
@@ -57,7 +57,7 @@
                           ?>
                         <tr>
                         <td <?=$arrchat[$data][0]['status_receiver']=='unread' ? "style='background-color:lightyellow'":"";?>>
-                        <a href="<?=base_url()?>perusahaan/chat/?read=<?=$data?>">
+                        <a href="<?=base_url()?>perusahaan/chat/?read=<?=base64_encode($data)?>">
                           <div class="mail_list">
                             <div class="left">
                             <?=$arrchat[$data][0]['status_receiver']=='sent' ? "<i class='fa fa-check'></i>":"<i class='fa fa-clock-o'></i>";?>
@@ -83,7 +83,7 @@
 
 <?php
 if(isset($_GET['read'])){
-  $id=$_GET['read'];
+  $id=base64_decode($_GET['read']);
   // $where=array(
   //    'senderid'=>$id
   //  );

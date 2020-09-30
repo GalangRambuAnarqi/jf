@@ -44,7 +44,7 @@
                           ?>
                         <tr>
                         <td <?=!empty($chatlist)&&$chatlist[$data['id']][0]['status_sender']=='unread' ? "style='background-color:lightyellow'":"";?>>
-                        <a href="<?=base_url()?>chat/?read=<?=$data['id']?>">
+                        <a href="<?=base_url()?>chat/?read=<?=base64_encode($data['id'])?>">
                           <div class="mail_list">
                             <div class="left">
                             <?=!empty($chatlist)&&$chatlist[$data['id']][0]['status_sender']=='sent' ? "<i class='fa fa-check'></i>":"<i class='fa fa-clock-o'></i>";?>
@@ -68,7 +68,7 @@
 
 <?php
 if(isset($_GET['read'])){
-  $id=$_GET['read'];
+  $id=base64_decode($_GET['read']);
  
   //  $this->ADM->update_data('chat','status'=>'read','id'=>$id);
   $chatcomp=!empty($chatlist)? array_reverse($chatlist[$id]) : "";
