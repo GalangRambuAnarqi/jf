@@ -23,7 +23,12 @@
       </li>
       <li><a href="<?=base_url()?>perusahaan/pelamar"><i class="fa fa-briefcase"></i> Pelamar </a>
       </li>
-      <li><a href="<?=base_url()?>perusahaan/chat"><i class="fa fa-comments-o"></i> Layanan</a>
+      <?php
+      $notif=$this->ADM->checkinboxperusahaan($this->session->userdata['adm_id']);
+      ?>
+      <li><a href="<?=base_url()?>perusahaan/chat"><i class="fa fa-comments-o"></i> Layanan 
+      <?=$notif>0? "<span class='badge badge-danger'>".$notif."</span>" : "";?>
+      </a>
       </li>
       <li><a href="<?=base_url()?>perusahaan/logout"><i class="fa fa-power-off"></i> Log Out</a>
       </li>

@@ -73,6 +73,16 @@
             return $this->db->get()->result_array();
         }
 
+        function checkinboxperusahaan($sesid){
+            $this->db->select('senderid');
+            $this->db->from('chat');
+            $this->db->group_by('senderid');
+            $this->db->where('receiverid',$sesid);
+            $this->db->where('role','user');
+            $this->db->where('status_receiver','unread');
+            return $this->db->get()->num_rows();
+        }
+
         public function getpelamarperusahaan($distinct="",$where=""){
             if($distinct=='distinct'){
                 $this->db->distinct();

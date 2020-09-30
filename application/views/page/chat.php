@@ -111,12 +111,11 @@ if(!empty($chatcomp)){
        </div>
     </div>
  <?php
- if($res['role']=='perusahaan'){
-    $lastid=$res['id'];
-  }
+//  if($res['role']=='perusahaan'){
+//     $lastid=$res['id'];
+//   }
  }
-  if(!empty($lastid))
-  $this->ADM->update_data('chat',array('status_sender'=>'read'),array('id'=>$lastid));
+  $this->ADM->update_data('chat',array('status_sender'=>'read'),array('senderid'=>$this->session->userdata['ses_id'],'receiverid'=>$id,'status_sender'=>'unread','role'=>'perusahaan'));
 }
  ?>
  

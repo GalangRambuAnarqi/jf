@@ -121,12 +121,12 @@ if(isset($_GET['read'])){
        </div>
     </div>
  <?php
- if($res['role']=='user'){
-    $lastid=$res['id'];
-  }
+//  if($res['role']=='user'){
+//     $lastid=$res['id'];
+//   }
  }
 //  ganti status read
- $this->ADM->update_data('chat',array('status_receiver'=>'read'),array('id'=>$lastid));
+ $this->ADM->update_data('chat',array('status_receiver'=>'read'),array('senderid'=>$id,'receiverid'=>$this->session->userdata('adm_id'),'status_receiver'=>'unread','role'=>'user'));
  ?>
  
   </div>
