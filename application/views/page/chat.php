@@ -11,7 +11,7 @@
               <div class="col-md-12 col-sm-12  ">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Chat dengan perusahaan</h2>
+                    <h2>Chat dengan perusahaan </h2>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
@@ -32,7 +32,7 @@
                         <table id="inbox" class="table table-bordered" cellspacing="0" width="100%">
                         <thead>
                         <tr>
-                        <td>Nama Perusahaan</td>
+                        <td>Nama Perusahaan &nbsp;&nbsp;-&nbsp;&nbsp; <a href="<?=base_url('chat')?>">refresh <i class="fa fa-refresh" aria-hidden="true"></i></a></td>
                         </tr>
                         </thead>
                         <tbody>
