@@ -8,16 +8,7 @@
                 <h3>Layanan</h3>
               </div>
 
-              <div class="title_right">
-                <div class="col-md-5 col-sm-5   form-group pull-right top_search">
-                  <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search for...">
-                    <span class="input-group-btn">
-                      <button class="btn btn-default" type="button">Go!</button>
-                    </span>
-                  </div>
-                </div>
-              </div>
+             
             </div>
 
             <div class="clearfix"></div>
@@ -57,7 +48,7 @@
                           ?>
                         <tr>
                         <td <?=$arrchat[$data][0]['status_receiver']=='unread' ? "style='background-color:lightyellow'":"";?>>
-                        <a href="<?=base_url()?>admin/chat/?read=<?=$data?>">
+                        <a href="<?=base_url()?>admin/chat/?read=<?=base64_encode($data)?>">
                           <div class="mail_list">
                             <div class="left">
                             <?=$arrchat[$data][0]['status_receiver']=='sent' ? "<i class='fa fa-check'></i>":"<i class='fa fa-clock-o'></i>";?>
@@ -89,7 +80,7 @@
 
 <?php
 if(isset($_GET['read'])){
-  $id=$_GET['read'];
+  $id=base64_decode($_GET['read']);
   // $where=array(
   //    'senderid'=>$id
   //  );
@@ -133,12 +124,13 @@ if(isset($_GET['read'])){
        </div>
     </div>
  <?php
- if($res['role']=='user'||$res['role']=='perusahaan'){
-    $lastid=$res['id'];
-  }
+//  if($res['role']=='user'||$res['role']=='perusahaan'){
+//     $lastid=$res['id'];
+//   }
  }
 //  ganti status read
- $this->ADM->update_data('chat',array('status_receiver'=>'read'),array('id'=>$lastid));
+
+ $this->ADM->update_data('chat',array('status_receiver'=>'read'),array('senderid'=>$id,'receiverid'=>'admin','status_receiver'=>'unread'));
  ?>
  
   </div>

@@ -42,7 +42,12 @@
       </li>
       <li><a href="<?=base_url()?>admin/users"><i class="fa fa-briefcase"></i> Manajemen User </a>
       </li>
-      <li><a href="<?=base_url()?>admin/chat"><i class="fa fa-comments-o"></i> Layanan </a>
+      <?php
+      $notif=$this->ADM->checkinboxadmin($this->session->userdata['adm_id']);
+      ?>
+      <li><a href="<?=base_url()?>admin/chat"><i class="fa fa-comments-o"></i> Layanan 
+      <?=$notif>0? "<span class='badge badge-danger'>".$notif."</span>" : "";?>
+      </a>
       </li>
       <li><a href="<?=base_url()?>admin/logout"><i class="fa fa-power-off"></i> Log Out</a>
       </li>
