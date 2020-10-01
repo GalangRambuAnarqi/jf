@@ -245,11 +245,21 @@ class Admin extends CI_Controller {
 			}
 		}
 
+		$bid=$this->input->post('bidang');
+		$bid2=$this->input->post('bidang2');
+		if(!empty($bid2)){
+			// $cek=$this->ADM->getWhereRow('bid_id','bidang_JF',array('bid_id'=>$bid));
+			// if(empty($cek)){
+			$this->db->insert('bidang_JF', array('bid_name'=>$bid2));
+			$bid=$this->ADM->getWhereRow('bid_id','bidang_JF',array('bid_name'=>$bid2))->bid_id;
+			// }
+		}
+
 		$data = array(
 			'judul_low' =>$this->input->post('judul'),
 			'id_perusahaan' =>$this->input->post('perusahaan'),
 			'pendidikan' =>rtrim($pendidikan, ','),
-			'bidang_kerja' =>$this->input->post('bidang'),
+			'bidang_kerja' =>$bid,
 			'penempatan' =>$this->input->post('penempatan'),
 			// 'jml_pekerja' =>$this->input->post('jml'),
 			'isi_low' =>$this->input->post('isi'),
@@ -284,11 +294,22 @@ class Admin extends CI_Controller {
 				}
 			}
 
+			$bid=$this->input->post('bidang');
+			$bid2=$this->input->post('bidang2');
+			if(!empty($bid2)){
+				// $cek=$this->ADM->getWhereRow('bid_id','bidang_JF',array('bid_id'=>$bid));
+				// if(empty($cek)){
+				$this->db->insert('bidang_JF', array('bid_name'=>$bid2));
+				$bid=$this->ADM->getWhereRow('bid_id','bidang_JF',array('bid_name'=>$bid2))->bid_id;
+				// }
+			}
+
+
 			$isi_update=array(
 				'judul_low' =>$this->input->post('judul'),
 				'id_perusahaan' =>$this->input->post('perusahaan'),
 				'pendidikan' =>rtrim($pendidikan, ','),
-				'bidang_kerja' =>$this->input->post('bidang'),
+				'bidang_kerja' =>$bid,
 				'penempatan' =>$this->input->post('penempatan'),
 				// 'jml_pekerja' =>$this->input->post('jml'),
 				'isi_low' =>$this->input->post('isi'),

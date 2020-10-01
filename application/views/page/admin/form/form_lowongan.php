@@ -105,8 +105,9 @@ function toggle(source) {
   <label class="control-label col-md-3 col-sm-3 ">Bidang</label>
   <div class="col-md-6 col-sm-6 ">
 
-  <select name="bidang" class="form-control selectpicker" data-live-search="true" required>
+  <select name="bidang" onchange="checkadd(this);" class="form-control selectpicker" data-live-search="true" required>
   <option data-tokens="0" value="0">- Pilih -</option>
+  <option data-tokens="-1" value="tambah">+ Tambah</option>
     <?php 
     foreach ($bidang as $data){
       ?>
@@ -114,8 +115,22 @@ function toggle(source) {
       <?php
     }?>
   </select>
+  <div id="tambahbidang" style="display: none;">
+  <input type="text" id="bidang" name="bidang2" class="form-control"/><br />
+  </div>
   </div>
 </div>
+<script>
+function checkadd(that) {
+    if (that.value == "tambah") {
+        document.getElementById("tambahbidang").style.display = "block";
+        document.getElementById("bidang").focus();
+        document.getElementById("bidang").required; 
+    } else {
+        document.getElementById("tambahbidang").style.display = "none";
+    }
+}
+</script>
 
 <div class="form-group row">
   <label class="control-label col-md-3 col-sm-3 ">Penempatan</label>
