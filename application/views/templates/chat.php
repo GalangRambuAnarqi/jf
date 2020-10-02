@@ -49,8 +49,8 @@
    }
    ?>
    
+   <a href="<?php echo $_SERVER['REQUEST_URI']; ?>" style="color:white">refresh <i class="fa fa-refresh" aria-hidden="true"></i></a>
     </div>
-
       <div class="message-item">
       <div class="row" style="width:100%; padding-top:3%;">
          <div class="col-12">
