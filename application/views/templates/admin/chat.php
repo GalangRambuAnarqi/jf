@@ -48,11 +48,11 @@
     $this->session->set_flashdata('pesanchat','<span class="badge badge-light blink_me"><strong>Pesan baru</strong></span>');
    }
    ?>
-   
+    <a href="<?php echo $_SERVER['REQUEST_URI']; ?>" style="color:white">refreshs <i class="fa fa-refresh" aria-hidden="true"></i></a>
     </div>
 
       <div class="message-item">
-      <div class="row" style="width:100%; padding-top:3%;">
+      <div class="row" style="width:100%;">
          <div class="col-12">
          <form action="<?=base_url('sendchat')?>" method="post">
          <tr>

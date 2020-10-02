@@ -90,6 +90,29 @@
   </script> -->
   </div>
 </div>
+<hr>
+<div class="item form-group" style="text-align:left">
+  <label class="col-form-label col-md-2 col-sm-2 label-align" for="first-name">Spesialisasi<span class="required">*</span>
+  </label>
+  
+<?php
+$spec=array();
+foreach($skill as $dt){
+  $spec[]=$dt['spesialis_id'];
+}
+// echo print_r($spec);
+for($i=0;$i<count($spesialisasi);$i+=(count($spesialisasi)/2)){
+  echo "<div class='col-md-5 col-sm-5'>";
+  for($j=round($i);$j<$i+(count($spesialisasi)/2);$j++){  
+?>
+  <input type="checkbox" class="spesialisasi" id="spesialisasi" onclick="submit_spesialisasi(this)" name="spesialisasi[]" value="<?=$spesialisasi[$j]['id']?>" <?=in_array($spesialisasi[$j]['id'], $spec)? "checked":"";?>> <?=$spesialisasi[$j]['nama']?><br>
+  <?php
+    }
+  echo "</div>";  
+  }
+  ?>
+  </div>
+</div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
                           <button type="submit" class="btn btn-primary" onclick="return confirm('Anda yakin ingin menyimpan perubahan?')">Simpan Perubahan</button>
@@ -98,4 +121,25 @@
                       </div>
                     </div>
                   </div>
+<script>
 
+
+
+function submit_spesialisasi(val) {
+  if ($('input[type=checkbox]:checked').length > 3) {
+        $(this).prop('checked', false);
+        alert("Pilih Maksimal 3");
+        val.checked = false;
+    }
+    else{
+    $.ajax({
+        type: "POST",
+        url: "<?php echo base_url(); ?>peserta/edit_spec",
+        data: { kdspec : val.value},
+        success: function(data) {
+            alert(data);
+        }
+    });
+  }
+}
+</script>

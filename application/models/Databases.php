@@ -81,7 +81,18 @@
             return $this->db->get()->result_array();
         }
 
-        
+        public function getSpesialisasi($id){
+            $this->db->select('id,spesialis_id');
+            $this->db->from("detail_spesialisasiJF");
+            $this->db->where('registrasi_id', $id);
+            return $this->db->get()->result_array();
+        }
+
+        public function listSpesialisasi(){
+            $this->db->select('*');
+            $this->db->from("spesialisJF17");
+            return $this->db->get()->result_array();
+        }
 
         //PESERTA
 
@@ -141,8 +152,7 @@
         function delete($table,$col,$id)
             {
                 $this->db->where($col,$id);
-                $this->db->delete($table);
-                return;//onsuccess
+                return $this->db->delete($table);
             }
 
         //END OF PESERTA

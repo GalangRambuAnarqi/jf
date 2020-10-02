@@ -327,6 +327,8 @@ class Peserta extends CI_Controller {
 		$data['judul']="Dashboard";
 		$data['isi']=$this->get_peserta();
 		$data['univ']=$this->DATA->date_univ($data['isi']->lulusan);
+		$data['skill']=$this->DATA->getSpesialisasi($this->session->userdata['ses_id']);
+		$data['spesialisasi']=$this->DATA->listSpesialisasi();
 		$data['page']="home";
 		$this->load->view("layout.php",$data);
 		}else{
@@ -366,6 +368,26 @@ class Peserta extends CI_Controller {
 			redirect(base_url().'home', 'refresh');
 		}else{
 			redirect(base_url(), 'refresh');
+		}
+	}
+
+	function edit_spec(){
+		$idspec=$this->input->post('kdspec');
+		$cek=$this->DATA->getWhereRow('id','detail_spesialisasiJF',array('spesialis_id'=>$idspec,'registrasi_id'=>$this->session->userdata['ses_id']));
+		if(!empty($cek)){
+			$hapus=$this->DATA->delete('detail_spesialisasiJF','id',$cek->id);
+			if($hapus){
+				echo "Berhasil dihapus";
+			}else{
+				echo "Gagal dihapus";
+			}
+		}else{
+			$insert=$this->DATA->insertspe('detail_spesialisasiJF',array('spesialis_id'=>$idspec,'registrasi_id'=>$this->session->userdata['ses_id']));
+			if($insert){
+				echo "Berhasil disimpan";
+			}else{
+				echo "Gagal disimpan";
+			}
 		}
 	}
 

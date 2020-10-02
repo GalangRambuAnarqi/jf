@@ -65,6 +65,22 @@
                 <i class="fa fa-phone-square user-profile-icon"></i> <?=$isi->hp?>
               </li>
 
+              <li>
+              <i class="fa fa-wrench" aria-hidden="true"></i>
+
+                <?php
+                $spec=array();
+                foreach($skill as $dt){
+                  $spec[]=$dt['spesialis_id'];
+                }
+
+                foreach($spesialisasi as $data){
+                 echo (in_array($data['id'],$spec))? $data['nama'].". " : "";
+                }
+             
+                ?>
+
+              </li>
             </ul>
 
             <center>
