@@ -70,12 +70,12 @@ $(document).ready(function (){
 
 <!-- antiklikkanan -->
 <script>
-// $(document).ready(function()
-// { 
-//        $(document).bind("contextmenu",function(e){
-//               return false;
-//        }); 
-// })
+$(document).ready(function()
+{ 
+       $(document).bind("contextmenu",function(e){
+              return false;
+       }); 
+})
 
 document.onkeydown = function(e) {
 	if(event.keyCode == 123) {

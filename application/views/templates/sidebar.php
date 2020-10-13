@@ -10,7 +10,7 @@
       </li>
       <li><a href="<?=base_url()?>dokumen"><i class="fa fa-briefcase"></i> Unggah Berkas </a>
       </li>
-       <li><a href="<?=base_url()?>comingsoon"><i class="fa fa-search"></i> Cari Kerja </a>
+       <li><a href="<?=base_url()?>findjob/perusahaan"><i class="fa fa-search"></i> Cari Kerja <span class="badge badge-light blink_me"><strong>!</strong></span> </a>
       </li>
       <?php
       $notif=$this->DATA->checkinbox($this->session->userdata['ses_id']);
@@ -18,11 +18,11 @@
       ?>
       
       <li><a href="<?=base_url()?>chat"><i class="fa fa-comments-o"></i> Chat 
-      <?=$notif>0? "<span class='badge badge-danger'>".$notif."</span>" : "";?>
+      <!-- <?=$notif>0? "<span class='badge badge-danger'>".$notif."</span>" : "";?> -->
       </a>
       </li>
-      <!-- <li><a href="<?=base_url()?>listlamaran"><i class="fa fa-list"></i> Daftar Lamaran </a>
-      </li> -->
+      <li><a href="<?=base_url()?>listlamaran"><i class="fa fa-list"></i> Daftar Lamaran </a>
+      </li>
       <!-- <li><a href="<?=base_url()?>scan2apply"><i class="fa fa-search"></i> Lamar </a>
       </li>
       <li><a href="<?=base_url()?>feedback"><i class="fa fa-comments-o"></i> Feedback </a>

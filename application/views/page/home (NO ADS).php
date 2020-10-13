@@ -17,119 +17,7 @@
       <!-- /judul -->
         <div class="x_content">
         <?=$this->session->flashdata('updateprofil');?>
-<?php
-if($lihatiklan==0){
-?>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-<div class="modal fade in bs-example-modal-xl" id="myModalLabel" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false" onload="countdown()">
-<div class="modal-dialog modal-xl">
-<div class="modal-content">
-<div class="modal-header">
-<h4 class="modal-title" id="myModalLabel">Modal title</h4>
-</button>
-</div>
-<div class="modal-body">
-<!-- <p><iframe frameborder="0" src="//www.youtube.com/embed/UEYF76dIa7Y?autoplay=1&mute=1&enablejsapi=1" style="position:fixed; left:5%; right:5%; top:2%; bottom:0; width:90%; height:90%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;pointer-events:auto;" class="note-video-clip" allowfullscreen></iframe><br></p> -->
-<p><iframe frameborder="0" src="//www.youtube.com/embed/fjdyXkvMuok?autoplay=1&mute=1&enablejsapi=1" style="position:fixed; left:5%; right:5%; top:2%; bottom:0; width:90%; height:90%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;pointer-events:auto;" class="note-video-clip" allowfullscreen></iframe><br></p>
 
-
-<button id="simak" onclick="location.href='<?=base_url('peserta/lihatiklan/?id='.base64_encode($this->session->userdata['ses_id']))?>'" style="background-color:lightblue; color:black; position:fixed; top:85%; left:40%; bottom:0; border:none; height:10%; margin:0; overflow:hidden; z-index:999999;" type="button" class="btn btn-info btn-lg">Pembukaan Udinus Virtual Jobfair 2 | (<span id="detikan"></span>s) Skip</button>
-
-<button id="tutup" onclick="location.href='<?=base_url('peserta/lihatiklan/?id='.base64_encode($this->session->userdata['ses_id']))?>'" style="display:none;background-color:yellow; color:black; position:fixed; top:85%; left:40%; bottom:0; border:none; height:10%; margin:0; overflow:hidden; z-index:999999;" type="button" class="btn btn-info btn-lg">Mulai Job Fair</button>
-<span id="detikan"></span>
-</div>
-</div>
-</div>
-</div>
-
-<script type="text/javascript">
-$(window).on('load',function(){
-$('#myModalLabel').modal('show');
-
-countdown();
-});
-
-var timer=5;
-// var timer=8;
-// setTimeout(function(){
-//   // $('#myModalLabel').modal('hide')
-//   // $("#tutup").show();
-
-//   timer=timer-1;
-//   },1000
-//   );
-
-function countdown(){
-if(timer>=0){
-document.getElementById('detikan').innerHTML=timer;
-}else{
-$("#tutup").show();
-$("#detikan").hide();
-$("#simak").hide();
-}
-timer-=1;
-var timer2=setTimeout("countdown()",1000);
-return;
-}
-</script>
-<?php
-}
-?>
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
- <div class="modal fade in bs-example-modal-lg" id="peringatan" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false"  style="display: none; z-index:999999;"> 
-        <div class="modal-dialog modal-lg"> 
-        <div class="modal-content"> 
-        <div class="modal-body"> 
-
-        <img src="<?=base_url()?>assets/img/peringatan.jpg" class="img-fluid" >
-
-<div class="modal-footer">
-<button class="btn btn-default" type="button" data-dismiss="modal"></button></div> 
-</div>
-</div>
-</div> 
-</div> 
-
-<script>
-// $(window).on('load',function(){
-// if (Cookies.get('tes') == 'undefined'){ 
-// $('#peringatan').modal('show');
-// Cookies.set('peringatan', 'yes', { expires: 365 });
-// }
-// });
-
-$(document).ready(function() {
-const expirationDuration = 1000 * 60 * 60 * 168; // 7*24 hours
-// const expirationDuration = 1000 * 15// 7*24 hours
-
-const prevAccepted = localStorage.getItem("popupku");
-const currentTime = new Date().getTime();
-
-const notAccepted = prevAccepted == undefined;
-const prevAcceptedExpired = prevAccepted != undefined && currentTime - prevAccepted > expirationDuration;
-if (notAccepted || prevAcceptedExpired) {
-  $('#peringatan').modal('show');
-  localStorage.setItem("popupku", currentTime);
-  setTimeout(function(){
-  $('#peringatan').modal('hide');
-   },7000
-  );
-}
-
-
-// var ispopup = localStorage.getItem('popup')
-// if (!ispopup) {
-//     $(window).load(function(){
-//        $('#peringatan').modal('show');
-//        localStorage.setItem('popup', 1);
-//     });
-// }
-});
-
-
-</script>
-
- 
           <div class="col-md-3 col-sm-3  profile_left">
 
           <center>
@@ -341,7 +229,7 @@ if (notAccepted || prevAcceptedExpired) {
                             <tr align=center>
                               <th width=5%>No</th>
                               <th>Perusahaan</th>
-                              <th>Jumlah Lowongan</th>
+                              <th>Lowongan Masuk</th>
                             </tr>
                           </thead>
                       <tbody>
@@ -354,7 +242,7 @@ if (notAccepted || prevAcceptedExpired) {
                             <tr>
                             <td><?=$no++?></td>
                             <td><?=$row['nama']?></td>
-                            <td><center><a class="btn btn-sm btn-warning" style="color:black" href="<?=base_url()?>lowongan/<?=$row['id']?>"><?=$totaljob[0]['jml']?> <i class="fa fa-sign-in" aria-hidden="true"></i></center></td> 
+                            <td><center><a href="<?=base_url()?>lowongan/<?=$row['id']?>"><?=$totaljob[0]['jml']?></a></center></td> 
                             <!-- <td><center><?=$totaljob[0]['jml']?></center></td>  -->
                             </tr>
                             <!-- <TR>

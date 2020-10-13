@@ -8,7 +8,7 @@
                 <h3>Layanan</h3>
               </div>
 
-             
+              
             </div>
 
             <div class="clearfix"></div>
@@ -36,7 +36,7 @@
                         <table id="inbox" class="table table-bordered" cellspacing="0" width="100%">
                         <thead>
                         <tr>
-                        <td>Pesan</td>
+                        <td>Pesan &nbsp;&nbsp;-&nbsp;&nbsp; <a href="<?=base_url('admin/chat')?>">refresh <i class="fa fa-refresh" aria-hidden="true"></i></a></td>
                         </tr>
                         </thead>
                         <tbody>

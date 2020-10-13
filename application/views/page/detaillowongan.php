@@ -94,7 +94,7 @@
            
             <a class="btn btn-primary" href='<?=base_url()?>apply/<?=$lowongan[0]['id_perusahaan']?>/<?=$lowongan[0]['id']?>' onclick="return confirm('Anda yakin ingin melamar <?=$lowongan[0]['judul_low']?>')"><i class="fa fa-briefcase m-right-xs"></i> Lamar</a>
 
-            <!-- <a class="btn btn-primary" href='#' onclick="return confirm('Segera, tanggal 2 Juni 2020')"><i class="fa fa-briefcase m-right-xs"></i> Lamar</a> -->
+            <!-- <a class="btn btn-primary" href='#' onclick="return confirm('Segera, tanggal 12 Oktober 2020')"><i class="fa fa-briefcase m-right-xs"></i> Lamar</a> -->
 
             <?php
             }else{
@@ -104,7 +104,9 @@
               <?php
             }
             ?>
-            <a class="btn btn-success" href='<?=base_url()?>chat/?read=<?=$lowongan[0]['id_perusahaan']?>&idlow=<?=$lowongan[0]['id']?>'><i class="fa fa-comments-o m-right-xs"></i> Tanya</a>
+            <a class="btn btn-success" href='<?=base_url()?>chat/?read=<?=base64_encode($lowongan[0]['id_perusahaan'])?>&idlow=<?=base64_encode($lowongan[0]['id'])?>'><i class="fa fa-comments-o m-right-xs"></i> Tanya</a>
+
+            <!-- <a class="btn btn-success" href='#' onclick="return confirm('Segera, tanggal 12 Oktober 2020')"><i class="fa fa-comments-o m-right-xs"></i> Tanya</a> -->
             </center>
           
             <hr>

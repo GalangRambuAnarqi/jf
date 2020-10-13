@@ -10,7 +10,7 @@
               <div class="col-md-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2><a href="<?=base_url()?>findjob">Cari Perusahaan</a> <small>/ <?=$perusahaan[0]['nama']?></small></h2>
+                    <h2><a href="<?=base_url()?>findjob/perusahaan">Cari Perusahaan</a> <small>/ <?=$perusahaan[0]['nama']?></small></h2>
                     
                     <div class="clearfix"></div>
                   </div>
@@ -91,7 +91,7 @@
                   <td><?=!empty($data['penempatan'])?$data['penempatan']:"N/A";?></td>
                     <td>
                     
-                    <a href='<?=base_url()?>detail_low/<?=$data['id_perusahaan']?>/<?=$data['id']?>'><font color=blue><i class="fa fa-desktop">Lihat</i></font></a><br>
+                    <a target="_blank" href='<?=base_url()?>detail_low/<?=$data['id_perusahaan']?>/<?=$data['id']?>'><font color=blue><i class="fa fa-desktop">Lihat</i></font></a><br>
                     
 
                     <?php
@@ -99,7 +99,7 @@
                     $sudahlamar=$this->ADM->select_data('id','pelamarJF',array('registrasi_id'=>$userid,'low_id'=>$data['id']),$sortby="",$order="");
                     if(empty($sudahlamar)){
                     ?>
-                      <!-- <a href='#' onclick="return confirm('Segera, tanggal 2 Juni 2020')"><font color=red><i class="fa fa-briefcase">Lamar</i></font></a> -->
+                      <!-- <a href='#' onclick="return confirm('Segera, tanggal 12 Oktober 2020')"><font color=red><i class="fa fa-briefcase">Lamar</i></font></a> -->
 
                       <a href='<?=base_url()?>apply/<?=$data['id_perusahaan']?>/<?=$data['id']?>' onclick="return confirm('Anda yakin ingin melamar <?=$data['judul_low']?>')"><font color=red><i class="fa fa-briefcase">Lamar</i></font></a>
                       

@@ -135,12 +135,12 @@ if(!empty($chatcomp)){
   $draft=(isset($_GET['idlow'])&&!empty($_GET['idlow']))? 
   "Salam, Saya ingin menanyakan perihal lowongan '".
   $this->DATA->
-  getWhereRow('judul_low','lowongan_JF',array('id'=>$_GET['idlow'],'id_perusahaan'=>$id))
+  getWhereRow('judul_low','lowongan_JF',array('id'=>base64_decode($_GET['idlow']),'id_perusahaan'=>$id))
   ->judul_low."' pada perusahaan Bapak/Ibu : <tuliskan>" 
   : 
   "";
   ?>
-        <textarea name="isichat" rows="1" cols=100% placeholder="ketik pesan anda" style="width:100%" autofocus><?=$draft?></textarea>
+        <textarea name="isichat" rows="1" cols=100% placeholder="ketik pesan anda" style="width:100%" required="required" autofocus><?=$draft?></textarea>
         </td>
         <td>
          <button type="submit" class="btn btn-success"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>

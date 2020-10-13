@@ -76,7 +76,7 @@
                 }
               }else{
                 echo "<tr>
-                <td colspan=7><center>Anda belum melamar loker apapun, klik <a href=".base_url('findjob/perusahaan').">disini</a> untuk mencari dan melamar kerja</center></td>
+                <td colspan=8><center>Anda belum melamar loker apapun, klik <a href=".base_url('findjob/perusahaan').">disini</a> untuk mencari dan melamar kerja</center></td>
                 
                 </tr>";
               }

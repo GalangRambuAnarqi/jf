@@ -33,10 +33,10 @@ if($lihatiklan==0){
 <p><iframe frameborder="0" src="//www.youtube.com/embed/fjdyXkvMuok?autoplay=1&mute=1&enablejsapi=1" style="position:fixed; left:5%; right:5%; top:2%; bottom:0; width:90%; height:90%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;pointer-events:auto;" class="note-video-clip" allowfullscreen></iframe><br></p>
 
 
-<button id="simak" onclick="location.href='<?=base_url('peserta/lihatiklan/?id='.base64_encode($this->session->userdata['ses_id']))?>'" style="background-color:lightblue; color:black; position:fixed; top:85%; left:40%; bottom:0; border:none; height:10%; margin:0; overflow:hidden; z-index:999999;" type="button" class="btn btn-info btn-lg">Pembukaan Udinus Virtual Jobfair 2 | (<span id="detikan"></span>s) Skip</button>
+<button id="simak" style="background-color:lightblue; color:black; position:fixed; top:85%; left:40%; bottom:0; border:none; height:10%; margin:0; overflow:hidden; z-index:999999;" type="button" class="btn btn-info btn-lg">Pembukaan Udinus Virtual Jobfair 2 | (<span id="detikan"></span>s) skip</button>
 
 <button id="tutup" onclick="location.href='<?=base_url('peserta/lihatiklan/?id='.base64_encode($this->session->userdata['ses_id']))?>'" style="display:none;background-color:yellow; color:black; position:fixed; top:85%; left:40%; bottom:0; border:none; height:10%; margin:0; overflow:hidden; z-index:999999;" type="button" class="btn btn-info btn-lg">Mulai Job Fair</button>
-<span id="detikan"></span>
+
 </div>
 </div>
 </div>
@@ -75,8 +75,9 @@ return;
 <?php
 }
 ?>
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
- <div class="modal fade in bs-example-modal-lg" id="peringatan" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false"  style="display: none; z-index:999999;"> 
+
+
+<div class="modal fade in bs-example-modal-lg" id="peringatan" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false"  style="display: none; z-index:999999;"> 
         <div class="modal-dialog modal-lg"> 
         <div class="modal-content"> 
         <div class="modal-body"> 
@@ -99,17 +100,17 @@ return;
 // });
 
 $(document).ready(function() {
-const expirationDuration = 1000 * 60 * 60 * 168; // 7*24 hours
+const expirationDuration = 1000 * 60 * 60 * 299; // 7*24 hours
 // const expirationDuration = 1000 * 15// 7*24 hours
 
-const prevAccepted = localStorage.getItem("popupku");
+const prevAccepted = localStorage.getItem("accepted");
 const currentTime = new Date().getTime();
 
 const notAccepted = prevAccepted == undefined;
 const prevAcceptedExpired = prevAccepted != undefined && currentTime - prevAccepted > expirationDuration;
 if (notAccepted || prevAcceptedExpired) {
   $('#peringatan').modal('show');
-  localStorage.setItem("popupku", currentTime);
+  localStorage.setItem("accepted", currentTime);
   setTimeout(function(){
   $('#peringatan').modal('hide');
    },7000
@@ -128,8 +129,6 @@ if (notAccepted || prevAcceptedExpired) {
 
 
 </script>
-
- 
           <div class="col-md-3 col-sm-3  profile_left">
 
           <center>
@@ -341,7 +340,7 @@ if (notAccepted || prevAcceptedExpired) {
                             <tr align=center>
                               <th width=5%>No</th>
                               <th>Perusahaan</th>
-                              <th>Jumlah Lowongan</th>
+                              <th>Lowongan Masuk</th>
                             </tr>
                           </thead>
                       <tbody>
@@ -354,7 +353,7 @@ if (notAccepted || prevAcceptedExpired) {
                             <tr>
                             <td><?=$no++?></td>
                             <td><?=$row['nama']?></td>
-                            <td><center><a class="btn btn-sm btn-warning" style="color:black" href="<?=base_url()?>lowongan/<?=$row['id']?>"><?=$totaljob[0]['jml']?> <i class="fa fa-sign-in" aria-hidden="true"></i></center></td> 
+                            <td><center><a href="<?=base_url()?>lowongan/<?=$row['id']?>"><?=$totaljob[0]['jml']?></a></center></td> 
                             <!-- <td><center><?=$totaljob[0]['jml']?></center></td>  -->
                             </tr>
                             <!-- <TR>

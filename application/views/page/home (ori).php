@@ -75,8 +75,10 @@ return;
 <?php
 }
 ?>
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
- <div class="modal fade in bs-example-modal-lg" id="peringatan" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false"  style="display: none; z-index:999999;"> 
+ 
+ 
+
+<div class="modal fade in bs-example-modal-lg" id="peringatan" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false"  style="display: none; z-index:999999;"> 
         <div class="modal-dialog modal-lg"> 
         <div class="modal-content"> 
         <div class="modal-body"> 
@@ -102,14 +104,14 @@ $(document).ready(function() {
 const expirationDuration = 1000 * 60 * 60 * 168; // 7*24 hours
 // const expirationDuration = 1000 * 15// 7*24 hours
 
-const prevAccepted = localStorage.getItem("popupku");
+const prevAccepted = localStorage.getItem("accepted");
 const currentTime = new Date().getTime();
 
 const notAccepted = prevAccepted == undefined;
 const prevAcceptedExpired = prevAccepted != undefined && currentTime - prevAccepted > expirationDuration;
 if (notAccepted || prevAcceptedExpired) {
   $('#peringatan').modal('show');
-  localStorage.setItem("popupku", currentTime);
+  localStorage.setItem("accepted", currentTime);
   setTimeout(function(){
   $('#peringatan').modal('hide');
    },7000

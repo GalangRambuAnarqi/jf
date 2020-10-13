@@ -330,7 +330,21 @@ class Peserta extends CI_Controller {
 		$data['skill']=$this->DATA->getSpesialisasi($this->session->userdata['ses_id']);
 		$data['spesialisasi']=$this->DATA->listSpesialisasi();
 		$data['page']="home";
+		$sudahlihatiklan=$this->DATA->getWhereRow('id','log_iklan',array('id_iklan'=>2,'id_viewer'=>$this->session->userdata['ses_id'],'status'=>1));
+		$data['lihatiklan']=!empty($sudahlihatiklan)?1:0;
+		// $data['lihatiklan']=1;
 		$this->load->view("layout.php",$data);
+		}else{
+			redirect(base_url().'login', 'refresh');
+		}
+	}
+
+	function lihatiklan(){
+		$id=$this->input->get('id');
+		$id=base64_decode($id);
+		if($this->isLoggedIn()){
+		$insert = $this->DATA->insertspe('log_iklan',array('id_iklan'=>2,'id_viewer'=>$id,'status'=>'1'));
+		redirect(base_url(), 'refresh');
 		}else{
 			redirect(base_url().'login', 'refresh');
 		}

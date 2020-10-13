@@ -48,11 +48,11 @@
     $this->session->set_flashdata('pesanchat','<span class="badge badge-light blink_me"><strong>Pesan baru</strong></span>');
    }
    ?>
-   
-   <a href="<?php echo $_SERVER['REQUEST_URI']; ?>" style="color:white">refresh <i class="fa fa-refresh" aria-hidden="true"></i></a>
+    <a href="<?php echo $_SERVER['REQUEST_URI']; ?>" style="color:white">refresh <i class="fa fa-refresh" aria-hidden="true"></i></a>
     </div>
+    <!-- <a href="<?=base_url('chat')?>" style="color:white">refresh <i class="fa fa-refresh" aria-hidden="true"></i></a> -->
       <div class="message-item">
-      <div class="row" style="width:100%; padding-top:3%;">
+      <div class="row" style="width:100%;">
          <div class="col-12">
          <form action="<?=base_url('sendchat')?>" method="post">
          <tr>
@@ -61,7 +61,7 @@
          <input type="hidden" name="iduser" value="<?=$iduser?>">
          <input type="hidden" name="receiverid" value="admin">
        <input type="hidden" name="role" value="user">
-         <textarea name="isichat" rows="1" cols="40" placeholder="ketik pesan anda" style="width:100%"></textarea>
+         <textarea name="isichat" rows="1" cols="40" placeholder="ketik pesan anda" style="width:100%" required="" autofocus></textarea>
         </td>
         <td>
          <button type="submit" class="btn btn-success"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>

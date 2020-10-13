@@ -93,7 +93,7 @@
               <div class="separator">
               
                    <p class="change_link">Anda tidak bisa login?<br>
-    
+                  <small style="color:yellow">*Bagi peserta jobfair batch lalu, dimohon daftar ulang</small>
                    <a href="#myModal" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">
                       Lupa Password
                     </a>

@@ -13,7 +13,7 @@
 
               <script>
 // Set the date we're counting down to
-var countDownDate = new Date("Oct 12, 2020 07:00:00").getTime();
+var countDownDate = new Date("Oct 12, 2020 05:50:00").getTime();
 
 // Update the count down every 1 second
 var x = setInterval(function() {
@@ -37,7 +37,7 @@ var x = setInterval(function() {
   // If the count down is over, write some text 
   if (distance < 0) {
     clearInterval(x);
-    document.getElementById("demo").innerHTML = "Job Fair Berakhir, Terimakasih";
+    document.getElementById("demo").innerHTML = "<span class='blink_me'>Sekarang !</span>";
   }
 }, 1000);
 </script>

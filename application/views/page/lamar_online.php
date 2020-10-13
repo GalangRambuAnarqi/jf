@@ -125,7 +125,7 @@ if(!file_exists('assets/uploads/perusahaan/logo/'.$perusahaan[0]['logo'])||$peru
   <td><?=!empty($data['penempatan'])? $data['penempatan'] : "N/A"?></td>
     <td>
     
-    <a href='<?=base_url()?>detail_low/<?=$data['id_perusahaan']?>/<?=$data['id']?>'><font color=blue><i class="fa fa-desktop">Lihat</i></font></a><br>
+    <a target="_blank" href='<?=base_url()?>detail_low/<?=$data['id_perusahaan']?>/<?=$data['id']?>'><font color=blue><i class="fa fa-desktop">Lihat</i></font></a><br>
     
 
     <?php
@@ -135,7 +135,7 @@ if(!file_exists('assets/uploads/perusahaan/logo/'.$perusahaan[0]['logo'])||$peru
     ?>
       <a href='<?=base_url()?>apply/<?=$data['id_perusahaan']?>/<?=$data['id']?>' onclick="return confirm('Anda yakin ingin melamar <?=$data['judul_low']?>')"><font color=red><i class="fa fa-briefcase">Lamar</i></font></a>
       
-      <!-- <a href='#' onclick="return confirm('Segera, tanggal 2 Juni 2020')"><font color=red><i class="fa fa-briefcase">Lamar</i></font></a> -->
+      <!-- <a href='#' onclick="return confirm('Segera, tanggal 12 Oktober 2020')"><font color=red><i class="fa fa-briefcase">Lamar</i></font></a> -->
       
       <br>
       <?php

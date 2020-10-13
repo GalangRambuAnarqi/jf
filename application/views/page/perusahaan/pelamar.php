@@ -33,7 +33,8 @@
     }else{
       ?>
                   <div class="x_title">
-                    <h2><?=$this->session->userdata['adm_nama']?></h2>
+                    <h2><?=$this->session->userdata['adm_nama']?> 
+                    &nbsp;&nbsp;-&nbsp;&nbsp; <a href="<?=$_SERVER['REQUEST_URI']?>">refresh <i class="fa fa-refresh" aria-hidden="true"></i></a></h2>
                     
                     <div class="clearfix"></div>
                   </div>
