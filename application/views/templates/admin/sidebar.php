@@ -46,7 +46,7 @@
       $notif=$this->ADM->checkinboxadmin($this->session->userdata['adm_id']);
       ?>
       <li><a href="<?=base_url()?>admin/chat"><i class="fa fa-comments-o"></i> Layanan 
-      <?=$notif>0? "<span class='badge badge-danger'>".$notif."</span>" : "";?>
+      <!-- <?=$notif>0? "<span class='badge badge-danger'>".$notif."</span>" : "";?> -->
       </a>
       </li>
       <li><a href="<?=base_url()?>admin/logout"><i class="fa fa-power-off"></i> Log Out</a>

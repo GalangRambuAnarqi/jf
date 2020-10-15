@@ -18,7 +18,7 @@
       ?>
       
       <li><a href="<?=base_url()?>chat"><i class="fa fa-comments-o"></i> Chat 
-      <!-- <?=$notif>0? "<span class='badge badge-danger'>".$notif."</span>" : "";?> -->
+      <?=$notif>0? "<span class='badge badge-danger'>".$notif."</span>" : "";?>
       </a>
       </li>
       <li><a href="<?=base_url()?>listlamaran"><i class="fa fa-list"></i> Daftar Lamaran </a>

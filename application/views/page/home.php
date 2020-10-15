@@ -76,12 +76,12 @@ return;
 }
 ?>
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
- <div class="modal fade in bs-example-modal-lg" id="peringatan" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false"  style="display: none; z-index:999999;"> 
-        <div class="modal-dialog modal-lg"> 
+ <div class="modal fade in" id="peringatan" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false"  style="display: none; z-index:999999;"> 
+        <div class="modal-dialog"> 
         <div class="modal-content"> 
         <div class="modal-body"> 
 
-        <img src="<?=base_url()?>assets/img/peringatan.jpg" class="img-fluid" >
+        <img src="<?=base_url()?>assets/img/peringatan.jpg" class="img-fluid">
 
 <div class="modal-footer">
 <button class="btn btn-default" type="button" data-dismiss="modal"></button></div> 
@@ -197,7 +197,7 @@ if (notAccepted || prevAcceptedExpired) {
 
             <center>
             <!-- <a href="<?=base_url()?>get_tiket" class="btn btn-success"><font color=white><i class="fa fa-download m-right-xs"></i> Download Tiket</font></a> -->
-            <button type="button" onclick="return confirm('Anda yakin ingin mengubah profil?')" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="fa fa-pencil m-right-xs"></i> Edit Profil</button>
+            <button type="button" onclick="return confirm('Anda yakin ingin mengubah profil?')" class="btn btn-success" data-toggle="modal" data-target=".editprofile"><i class="fa fa-pencil m-right-xs"></i> Edit Profil</button>
 
             <a class="btn btn-primary" href="<?=base_url()?>dokumen"><i class="fa fa-upload m-right-xs"></i> Unggah Berkas</a>
             

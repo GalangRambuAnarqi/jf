@@ -42,7 +42,7 @@ $('#iklan').modal('show');
 countdown();
 });
 
-var timer=209;
+var timer=5;
 // var timer=7;
 // setTimeout(function(){
 //   // $('#myModalLabel').modal('hide')
