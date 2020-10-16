@@ -82,6 +82,43 @@ class Admin extends CI_Controller {
 		}
 	}
 
+	function newjf(){
+		$ke=$this->input->post('ke');
+		$tipe=$this->input->post('tipe');
+
+		if($tipe=='online'){
+			$kode='VJF_'.str_pad($ke, 2, '0', STR_PAD_LEFT);
+		}else{
+			$kode='JF_'.str_pad($ke, 2, '0', STR_PAD_LEFT);
+		}
+		
+
+		$tanggal_mulai=$this->input->post('tanggal_mulai');
+		$tanggal_selesai=$this->input->post('tanggal_selesai');
+		$data=array(
+			'ke'=>$ke,
+			'kode'=>$kode,
+			'tipe'=>$tipe,
+			'tanggal_mulai'=>$tanggal_mulai,
+			'tanggal_selesai'=>$tanggal_selesai
+		);
+		// echo print_r($data);
+	
+		$res = $this->db->insert('jf_ke', $data);	
+		if($res){
+			$this->session->set_userdata('tambahjobfair', '<div class="alert alert-success alert-dismissable">
+			<strong>Berhasil buat jobfair baru</strong>
+			</div>');
+			
+		}else{
+			$this->session->set_userdata('tambahjobfair', '<div class="alert alert-danger alert-dismissable">
+			<strong>Gagal</strong>
+			</div>');
+		}
+		redirect(base_url()."admin");
+		
+	}
+
 	// function profil(){
 	// 	if($this->isLoggedIn()){
 	// 	$data['isi']=$this->get_peserta();
