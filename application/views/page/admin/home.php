@@ -38,8 +38,10 @@
             <div class="col-md-2 col-sm-4  tile_stats_count">
               <span class="count_top"><i class="fa fa-institution"></i> <?=$totperusahaan?> Company</span>
               <div class="count dark"><?=$totlowongan?><sub><font size=2>(loker)</font></sub></div>
-              <!-- <span class="count_bottom"><i class="green"><?=$totlamaran?></i> Lamaran</span> -->
-              <span class="count_bottom"><i class="green"><?=$totpelamar?></i> Pelamar</span><br>
+    
+              <span class="count_bottom"><i class="green"><?=$totpelamar?></i> Pelamars</span><br>          
+              <span class="count_bottom"><i class="green"><?=$totlamaran?></i> Lamaran</span>
+              
             </div>
             
           </div>
