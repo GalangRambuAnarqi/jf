@@ -119,6 +119,7 @@ class Admin extends CI_Controller {
 		
 	}
 
+
 	// function profil(){
 	// 	if($this->isLoggedIn()){
 	// 	$data['isi']=$this->get_peserta();

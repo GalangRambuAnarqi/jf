@@ -69,8 +69,10 @@
     
       <div class="login_wrapper">
         <div class="animate form login_form">
+        <center><h3>Jobfair diperpanjang hingga tanggal 22 Oktober 2020</h3></center>
           <section class="login_content">
           <form name="form" method="post" action="<?php echo base_url('peserta/login'); ?>">
+       
             <h1>PESERTA JOBFAIR</h1>
          
               <?=$this->session->flashdata('eror');?>

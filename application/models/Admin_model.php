@@ -47,7 +47,7 @@
             $this->db->select("a.id");
             $this->db->from("registrasiJF as b");
             $this->db->where('b.golongan', $golongan);
-            $this->db->where("date(a.waktu) between '2020-10-12' and '2020-10-16'");
+            $this->db->where("date(a.waktu) between '2020-10-12' and '2020-10-22'");
             $this->db->where("a.status",'login');
             $this->db->join('log as a', 'a.id = b.id', 'inner');
             return $this->db->get()->num_rows();

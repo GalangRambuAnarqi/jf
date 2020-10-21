@@ -37,7 +37,7 @@ var x = setInterval(function() {
   // If the count down is over, write some text 
   if (distance < 0) {
     clearInterval(x);
-    document.getElementById("demo").innerHTML = "<span class='blink_me'>Sekarang !</span>";
+    document.getElementById("demo").innerHTML = "<span class='blink_me'>Sekarang ! - DIPERPANJANG HINGGA 22 OKTOBER</span>";
   }
 }, 1000);
 </script>
