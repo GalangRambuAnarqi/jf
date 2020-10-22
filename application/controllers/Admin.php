@@ -87,20 +87,22 @@ class Admin extends CI_Controller {
 		$tipe=$this->input->post('tipe');
 
 		if($tipe=='online'){
-			$kode='VJF_'.str_pad($ke, 2, '0', STR_PAD_LEFT);
+			$kode='VJF_'.str_pad($ke, 3, '0', STR_PAD_LEFT);
 		}else{
-			$kode='JF_'.str_pad($ke, 2, '0', STR_PAD_LEFT);
+			$kode='JF_'.str_pad($ke, 3, '0', STR_PAD_LEFT);
 		}
 		
 
 		$tanggal_mulai=$this->input->post('tanggal_mulai');
 		$tanggal_selesai=$this->input->post('tanggal_selesai');
+		$linkjf=$this->input->post('link_registrasi');
 		$data=array(
 			'ke'=>$ke,
 			'kode'=>$kode,
 			'tipe'=>$tipe,
 			'tanggal_mulai'=>$tanggal_mulai,
-			'tanggal_selesai'=>$tanggal_selesai
+			'tanggal_selesai'=>$tanggal_selesai,
+			'link_registrasi'=>$linkjf
 		);
 		// echo print_r($data);
 	
