@@ -30,6 +30,29 @@
             $read =  $this->db->get()->result_array();
             return count($read);
         }
+        
+        public function getjfke(){
+            return $this->db->select("*")
+                     ->from("jf_ke")
+                     ->order_by('id','DESC')
+                     ->get()->row();
+        }
+
+        function cekLogin(){
+            $jfke=$this->getjfke();
+            $idjf=$jfke->id;
+            $email=$this->input->post('mail');
+            $pass=md5($this->input->post('pass'));
+            
+            $this->db->select('a.*');
+            $this->db->from('registrasiJF a');
+            $this->db->join('partisipasi_JF b', 'b.id_registrasi = a.iduser', 'left'); 
+            $this->db->where('a.email', $email);  
+            $this->db->where('a.pass', $pass);  
+            $this->db->where('b.id_jf', $idjf);  
+            $query = $this->db->get();
+            return $query->row();
+        }
 
         function create($tabel,$create){
             $this->db->insert($tabel, $create);

@@ -29,14 +29,11 @@ class Peserta extends CI_Controller {
 
 	function login()
 	{
-		$email=$this->input->post('mail');
-		$pass=md5($this->input->post('pass'));
-		$where = array(
-			'email'=>$email,
-			'pass'=>$pass
-		);
 		
-		$dataLogin=$this->DATA->GetWhere('registrasiJF',$where)->row();
+		// $dataLogin=$this->DATA->GetWhere('registrasiJF',$where)->row();
+		
+		$dataLogin=$this->DATA->cekLogin();
+
 
 		if(!empty($dataLogin)){
 			$ses_email=$dataLogin->email;
@@ -330,9 +327,9 @@ class Peserta extends CI_Controller {
 		$data['skill']=$this->DATA->getSpesialisasi($this->session->userdata['ses_id']);
 		$data['spesialisasi']=$this->DATA->listSpesialisasi();
 		$data['page']="home";
-		$sudahlihatiklan=$this->DATA->getWhereRow('id','log_iklan',array('id_iklan'=>2,'id_viewer'=>$this->session->userdata['ses_id'],'status'=>1));
-		$data['lihatiklan']=!empty($sudahlihatiklan)?1:0;
-		// $data['lihatiklan']=1;
+		// $sudahlihatiklan=$this->DATA->getWhereRow('id','log_iklan',array('id_iklan'=>2,'id_viewer'=>$this->session->userdata['ses_id'],'status'=>1));
+		// $data['lihatiklan']=!empty($sudahlihatiklan)?1:0;
+		$data['lihatiklan']=1;
 		$this->load->view("layout.php",$data);
 		}else{
 			redirect(base_url().'login', 'refresh');
