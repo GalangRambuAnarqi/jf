@@ -10,7 +10,7 @@
               <div class="col-md-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2><a href="<?=base_url()?>lowongan/<?=$perusahaan[0]['id']?>"><?=$perusahaan[0]['nama']?></a> <small> / <?=$lowongan[0]['judul_low']?> / <a href="<?=base_url()?>findjob">Daftar Perusahaan</a> </small></h2>
+                    <h2><a href="<?=base_url()?>lowongan/<?=$perusahaan[0]['id']?>"><?=$perusahaan[0]['nama']?></a> <small> / <?=$lowongan[0]['judul_low']?> / <a href="<?=base_url()?>findjob/perusahaan">Daftar Perusahaan</a> </small></h2>
                     <div class="clearfix"></div>
                   </div>
                   <?=$this->session->flashdata('statuslamar');?>

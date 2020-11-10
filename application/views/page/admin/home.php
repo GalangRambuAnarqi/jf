@@ -1,12 +1,7 @@
    <!-- page content -->
+
    <div class="right_col" role="main">
-        
-       <?php
-
-    //  $day=array_reverse($day);
-      //  $total=array_reverse($total);
-
-       ?>
+           <?php $this->load->view('templates/admin/selectjf'); ?>
        
        <div class="row" style="display: inline-block;" >
           <div class="tile_count">
@@ -223,6 +218,8 @@ $("#save").click(function() {
           <div class="x_panel">
                 <div class="x_title">
                   <h2>Pengunjung & Pelamar Saat Jobfair</h2>
+
+          
                 
                   <div class="clearfix"></div>
                 </div>
@@ -317,8 +314,8 @@ $("#save2").click(function() {
             // $pelamarperusahaan=$this->ADM->count_data('id','pelamarJF',array('perusahaan_id'=>$data['id']),$sortby="",$order="");
             
             // $totpelamarperusahaan[]=$pelamarperusahaan;
-            $jmlpelamarudinus=$this->ADM->get2join('count(distinct a.registrasi_id) as jml','pelamarJF as a','registrasiJF as b','a.registrasi_id=b.id',array('b.golongan'=>'UDINUS','a.perusahaan_id'=>$data['id']));
-            $jmlpelamarumum=$this->ADM->get2join('count(distinct a.registrasi_id) as jml','pelamarJF as a','registrasiJF as b','a.registrasi_id=b.id',array('b.golongan'=>'UMUM','a.perusahaan_id'=>$data['id']));
+            $jmlpelamarudinus=$this->ADM->pelamarudinusbycomp($data['id']);
+            $jmlpelamarumum=$this->ADM->pelamarumumbycomp($data['id']);
             
             $nmperusahaan[]=$data['nama'];
             $peludinus[]=$jmlpelamarudinus[0]['jml'];

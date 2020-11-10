@@ -27,9 +27,8 @@
             <?php 
             $nama=$this->ADM->select_data('nama','perusahaan_JF',array('id'=>$data['id_perusahaan']),$x="",$x="");
             $bidang=$this->ADM->select_data('bid_name','bidang_JF',array('bid_id'=>$data['bidang_kerja']),$x="",$x="");
-            $jmlpelamar=$this->ADM->select_distinct('registrasi_id','pelamarJF',array('low_id'=>$data['id']),$sortby="",$order="")->num_rows();
+            $jmlpelamar=$this->ADM->getpelamarjfperlow($data['id']);
             ?>
-          
             <td><?=$nama['0']['nama']?></td>
             <td><?=$data['judul_low']?></td>
             <td><?=$data['pendidikan']?></td>

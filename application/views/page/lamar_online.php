@@ -28,7 +28,7 @@
 if($tabs=='perusahaan'){
   
                   foreach($perusahaan as $data){
-                  $totaljob=$this->ADM->select_data('count(id) as jml','lowongan_JF',array('id_perusahaan'=>$data['id']),$sortby="",$order="");
+                  $totaljob=$this->ADM->totaljob($data['id']);
                   
                   ?>
           

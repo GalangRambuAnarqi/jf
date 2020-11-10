@@ -252,7 +252,7 @@
             </div>
             <br>
             <center>
-            <a href="#" onclick="location.href = 'peserta/downloadAll/<?=$isi->id?>'" class="btn btn-info"><h5>Unduh Semua</h5></a>
+            <a href="#" onclick="location.href = 'peserta/downloadAll/<?=$isi->iduser?>'" class="btn btn-info"><h5>Unduh Semua</h5></a>
             </center>
             <br><br>
             <!-- /table -->

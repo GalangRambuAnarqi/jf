@@ -58,6 +58,8 @@
                   $lowongan=$this->ADM->select_data('*','lowongan_JF',array('id'=>$data['low_id']),$sortby="",$order="");
                   $perusahaan=$this->ADM->select_data('*','perusahaan_JF',array('id'=>$data['perusahaan_id']),$sortby="",$order="");
                   $bidang=$this->ADM->select_data('*','bidang_JF',array('bid_id'=>$lowongan[0]['bidang_kerja']),$sortby="",$order="");
+
+                  $compjf=$this->DATA->is_comp_join_jf($data['perusahaan_id']);
                 ?>
                 <tr>
                 <td><?=$no++?></td>
@@ -67,8 +69,18 @@
                  <td><?=$lowongan[0]['pendidikan']?></td> 
                  <td><?=!empty($lowongan[0]['penempatan'])?$lowongan[0]['penempatan'] : "N/A";?></td> 
                  <td><font color=<?=$statuscolor[$data['status']]?>><?=$status[$data['status']]?></font></td> 
-                 <td> <a href='<?=base_url()?>detail_low/<?=$data['perusahaan_id']?>/<?=$data['low_id']?>'><font color=blue><i class="fa fa-desktop">Lihat</i></font></a><br>
-                 <a href='<?=base_url()?>cabutlamaran/<?=$data['id']?>' onclick="return confirm('Anda yakin membatalkan melamar di lowongan <?=$lowongan[0]['judul_low']?>')"><font color=red><i class="fa fa-trash-o">Batal Melamar</i></font></a
+                 <td> 
+                 <?php
+                 if(!empty($compjf)){
+                 ?>
+                 <a href='<?=base_url()?>detail_low/<?=$data['perusahaan_id']?>/<?=$data['low_id']?>'><font color=blue><i class="fa fa-desktop">Lihat</i></font></a><br>
+                 <a href='<?=base_url()?>cabutlamaran/<?=$data['id']?>' onclick="return confirm('Anda yakin membatalkan melamar di lowongan <?=$lowongan[0]['judul_low']?>')"><font color=red><i class="fa fa-trash-o">Batal Melamar</i></font></a>
+                <?php
+                 }else{
+                   echo "<b><font color=red>Expired</font></b>";
+                 }
+                ?>
+
                  </td> 
                          
                 </tr>

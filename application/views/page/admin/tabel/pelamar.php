@@ -30,7 +30,7 @@
               <?php
               $no=1;
               foreach($pelamar as $data){
-                $datapendaftar=$this->ADM->select_data('*','registrasiJF',array('id'=>$data['registrasi_id']),$sortby="",$order="");
+                $datapendaftar=$this->ADM->select_data('*','registrasiJF',array('iduser'=>$data['registrasi_id']),$sortby="",$order="");
                 $lulusan=$this->ADM->select_data('nama_univ','daftar_univ',array('id'=>$datapendaftar[0]['lulusan']),$sortby="",$order="");
                 $spesialis=$this->ADM->get2join('a.nama','spesialisJF17 as a','detail_spesialisasiJF as b','a.id=b.spesialis_id',array('registrasi_id'=>$data['registrasi_id']));
                 

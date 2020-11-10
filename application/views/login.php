@@ -1,3 +1,6 @@
+<?php
+$linkregistrasi=$this->DATA->getjfke()->link_registrasi;
+?>
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script> -->
@@ -52,7 +55,7 @@
                        success:function(data){
                         if(data == "Notfound"){
                             $("#confirm").val("checked", false);
-                            $('#cekemail').html('<img src="assets/img/cross.png"> Maaf, Email anda tidak terdaftar, silahkan coba registrasi jobfair kembali');
+                            $('#cekemail').html('<img src="assets/img/cross.png"> Maaf, Email anda tidak terdaftar, silahkan coba registrasi jobfair kembali <br><a href="<?=$linkregistrasi?>"><font color=blue>Daftar Sekarang!(Klik)</font></a>');
                             $("#email").val('');
                         }else{
                           $('#cekemail').html(data);
@@ -99,7 +102,7 @@
                    <a href="#myModal" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">
                       Lupa Password
                     </a>
-                    <a href="http://cc.dinus.ac.id/vjf_udinus" class="btn btn-info" role="button">Daftar Job Fair</a>
+                    <a href="<?=$linkregistrasi?>" class="btn btn-info" role="button">Daftar Job Fair</a>
                     <a href="https://wa.me/6285640726824?text=Dear%20admin%20Job%20Fair%20,%20Saya%20memiliki%20masalah%20:%20<sebutkan>" class="btn btn-danger" role="button">Lapor Masalah</a>
                   </p>
 

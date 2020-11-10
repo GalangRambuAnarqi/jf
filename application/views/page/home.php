@@ -150,7 +150,7 @@ if (notAccepted || prevAcceptedExpired) {
               </div>
             </div>
             <h3><?=$isi->nama;?></h3>
-            (<?php echo $isi->id;?> -
+            (<?php echo $this->session->userdata('ses_kdjf');?> -
             <?php echo $isi->golongan;?>)
             </center>              
             <br>

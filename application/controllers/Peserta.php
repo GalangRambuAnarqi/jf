@@ -33,18 +33,22 @@ class Peserta extends CI_Controller {
 		// $dataLogin=$this->DATA->GetWhere('registrasiJF',$where)->row();
 		
 		$dataLogin=$this->DATA->cekLogin();
-
+		// print_r($dataLogin);
 
 		if(!empty($dataLogin)){
 			$ses_email=$dataLogin->email;
 			$ses_nama=$dataLogin->nama;
-			$ses_id=$dataLogin->id;
+			$ses_id=$dataLogin->iduser;
+			$ses_idjf=$dataLogin->idjf;
+			$ses_kdjf=$dataLogin->kdjf;
 			// Session
 			$data_session=array(
 				'ses_status'=>'login',
 				'ses_email'=>$ses_email,
 				'ses_nama'=>$ses_nama,
-				'ses_id'=>$ses_id
+				'ses_id'=>$ses_id,
+				'ses_kdjf'=>$ses_kdjf,
+				'ses_idjf'=>$ses_idjf
 			);
 			$this->session->set_userdata($data_session);
 			// end Session
@@ -109,10 +113,17 @@ class Peserta extends CI_Controller {
 		}
 
 		if($data['tabs']=='perusahaan'){
-			$data['perusahaan']=$this->ADM->select_data('*','perusahaan_JF',array('status'=>'aktif'),$sortby="",$order="");
+			$data['perusahaan']=$this->DATA->getperusahaanjf();
 		}
 		if($data['tabs']=='quickfind'){
-			$data['lowongan']=$this->ADM->select_data('*','lowongan_JF',array('status'=>'aktif'),'id_perusahaan','asc');
+			$perusahaanaktif=$this->DATA->getperusahaanjf();
+			$data['lowongan']=array();
+			foreach ($perusahaanaktif as $perusaktif){
+				$getlow=$this->ADM->select_data('*','lowongan_JF',array('id_perusahaan'=>$perusaktif['id']),'id','DESC');
+				foreach ($getlow as $low){
+					$data['lowongan'][]=$low;
+				}
+			}
 		}
 
 		$data['page']="lamar_online";
@@ -203,7 +214,7 @@ class Peserta extends CI_Controller {
 		if($this->isLoggedIn()){
 		$data['isi']=$this->get_peserta();
 		$data['perusahaan']=$this->ADM->select_data('*','perusahaan_JF',array('status'=>'aktif','id'=>$idperusahaan),$sortby="",$order="");
-		$data['lowongan']=$this->ADM->select_data('*','lowongan_JF',array('status'=>'aktif','id_perusahaan'=>$idperusahaan),$sortby="",$order="");
+		$data['lowongan']=$this->DATA->getlowpercomp($idperusahaan);
 		$data['page']="daftarlowongan";
 		$data['judul']="Job Vacancy";
 		$this->load->view("layout.php",$data);
@@ -264,7 +275,8 @@ class Peserta extends CI_Controller {
 		$data['isi']=$this->get_peserta();
 		$data['judul']="Chat";
 		$data['page']="chat";
-		$data['perusahaan']=$this->ADM->select_data('id,nama','perusahaan_JF',array('status'=>'aktif'),'id','asc');
+		$data['perusahaan']=$this->DATA->getperusahaanjf();
+		// $data['perusahaan']=$this->ADM->select_data('id,nama','perusahaan_JF',array('status'=>'aktif'),'id','asc');
 		// $data['userchat']=$this->ADM->select_data('*','chat',array('senderid'=>$this->session->userdata['ses_id']),'id','desc');
 		$data['userchat']=$this->ADM->select_data('*','chat',array('senderid'=>$this->session->userdata['ses_id'],'receiverid !='=>'admin'),'id','desc');
 		$this->load->view("layout.php",$data);
@@ -320,7 +332,7 @@ class Peserta extends CI_Controller {
 		$where=array(
 			'status'=>'aktif'
 		);
-		$data['perusahaan']=$this->ADM->select_data('id,nama','perusahaan_JF',array('status'=>'aktif'),$sortby="",$order="");
+		$data['perusahaan']=$this->DATA->getperusahaanjf();
 		$data['judul']="Dashboard";
 		$data['isi']=$this->get_peserta();
 		$data['univ']=$this->DATA->date_univ($data['isi']->lulusan);
@@ -362,7 +374,7 @@ class Peserta extends CI_Controller {
 				);
 		
 			$where=array(
-				'id'=>$this->session->userdata['ses_id']
+				'iduser'=>$this->session->userdata['ses_id']
 			);
 
 			$res = $this->ADM->update_data('registrasiJF',$isi_update,$where);
@@ -409,7 +421,7 @@ class Peserta extends CI_Controller {
 				);
 		
 			$where=array(
-				'id'=>$this->input->post('id')
+				'iduser'=>$this->input->post('id')
 			);
 
 			$res = $this->ADM->update_data('registrasiJF',$isi_update,$where);
@@ -554,7 +566,7 @@ class Peserta extends CI_Controller {
 
 	function get_peserta(){
 		$where=array(
-			'id'=>$this->session->userdata['ses_id']
+			'iduser'=>$this->session->userdata['ses_id']
 		);
 		return $this->DATA->GetWhere('registrasiJF',$where)->row();
 	}
@@ -562,10 +574,10 @@ class Peserta extends CI_Controller {
 	function downloadAll($id){
 		$this->load->library('zip');
 		$where=array(
-			'id'=>$id
+			'iduser'=>$id
 		);
 		$data=$this->DATA->GetWhere('registrasiJF',$where)->row();
-		$filename=strtoupper($data->nama." (".$data->id.")");
+		$filename=strtoupper($data->nama." (SEMUA BERKAS)");
 
 		if(!empty($data->foto)){
 			$filepath[] = 'assets/uploads/foto/'.$data->foto;
@@ -654,10 +666,10 @@ class Peserta extends CI_Controller {
 	function upload($tipe,$obj){
 		if($this->isLoggedIn()){
 		$nama=strtoupper($this->session->userdata['ses_nama']);
-		$id=$this->session->userdata['ses_id'];
+		$id=md5($this->session->userdata['ses_id']);
 		// $tgl = date('m-d-Y h:i:s', time());
 		
-		$nama_file = str_replace(' ', '_',$id.'_'.$nama.'_'.strtoupper($tipe));
+		$nama_file = str_replace(' ', '_',$nama.'_'.strtoupper($tipe).'_'.$id);
 		$config['upload_path'] = 'assets/uploads/'.$tipe.'/';
 		
 		if($obj=='gambar'){
@@ -692,7 +704,7 @@ class Peserta extends CI_Controller {
 					);
 			
 				$where=array(
-					'id'=>$id
+					'iduser'=>$this->session->userdata['ses_id']
 				);
 				$this->DATA->update_data('registrasiJF',$isi_update,$where);
 
@@ -741,38 +753,39 @@ class Peserta extends CI_Controller {
 
 		$email=$this->input->post('email');
 
-		$cari=$this->DATA->getWhereRow('id','registrasiJF',array('email'=>$email));
-		$id=base64_encode($cari->id);
-	
-		$headers = "MIME-Version: 1.0" . "\r\n";
-		$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-		$headers .= 'From: JOBFAIR UDINUS <career@cc.dinus.ac.id>'. "\r\n";
-		// More headers
-		// $headers .= 'From: career@cc.dinus.ac.id' . "\r\n";
-		// $headers .= 'Cc: myboss@example.com' . "\r\n";
+		$cari=$this->DATA->getpesertabymail($email);
+		$id=base64_encode($cari->iduser);
+		redirect('http://localhost/peserta_JF/peserta/konfirmchange/?acid='.$id, 'refresh');
+		
+		// $headers = "MIME-Version: 1.0" . "\r\n";
+		// $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+		// $headers .= 'From: JOBFAIR UDINUS <career@cc.dinus.ac.id>'. "\r\n";
+		// // More headers
+		// // $headers .= 'From: career@cc.dinus.ac.id' . "\r\n";
+		// // $headers .= 'Cc: myboss@example.com' . "\r\n";
 
-		$pesan = "
-				<html>
-				<head>
-				<title>Ganti Password</title>
-				</head>
-				<body>
-				<table>
-				<tr><td>
-				<p>Silahkan klik melalui link berikut untuk mengganti password : <a href=http://cc.dinus.ac.id/peserta_JF/peserta/konfirmchange/?acid={$id}>Klik disini</a></p>
-				</td></tr>
-				</table>	
-				</body>
-				</html>
-				";
+		// $pesan = "
+		// 		<html>
+		// 		<head>
+		// 		<title>Ganti Password</title>
+		// 		</head>
+		// 		<body>
+		// 		<table>
+		// 		<tr><td>
+		// 		<p>Silahkan klik melalui link berikut untuk mengganti password : <a href=http://cc.dinus.ac.id/peserta_JF/peserta/konfirmchange/?acid={$id}>Klik disini</a></p>
+		// 		</td></tr>
+		// 		</table>	
+		// 		</body>
+		// 		</html>
+		// 		";
 		
 
-		// proses mengirim email dengan attachment
-		mail($email, "GANTI PASSWORD LOGIN VIRTUAL JOBFAIR UDINUS", $pesan, $headers);
-		$this->session->set_flashdata('gantipassword','<div class="alert alert-info alert-dismissable">
-					<strong>Permintaan penggantian password berhasil. silahkan cek inbox/spam email anda</strong>
-				</div>');
-		redirect(base_url().'peserta', 'refresh');
+		// // proses mengirim email dengan attachment
+		// mail($email, "GANTI PASSWORD LOGIN VIRTUAL JOBFAIR UDINUS", $pesan, $headers);
+		// $this->session->set_flashdata('gantipassword','<div class="alert alert-info alert-dismissable">
+		// 			<strong>Permintaan penggantian password berhasil. silahkan cek inbox/spam email anda</strong>
+		// 		</div>');
+		// redirect(base_url().'peserta', 'refresh');
 	}
 
 

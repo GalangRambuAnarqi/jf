@@ -11,10 +11,30 @@
             return $query->result_array();
         }
 
+        // public function cek_email($email){
+        //     $this->db->where('email', $email);  
+        //     $query = $this->db->get("registrasiJF")->num_rows();
+        //     return $query;
+        // }
+
         public function cek_email($email){
-            $this->db->where('email', $email);  
-            $query = $this->db->get("registrasiJF")->num_rows();
-            return $query;
+            $jfke=$this->getjfke();
+            $idjf=$jfke->id;
+
+            // $regid=$this->getRowBy('registrasiJF',array('email'=>$email))->iduser;
+       
+            // $this->db->where('email', $email);  
+            // $this->db->where('jf_id', $idjf);  
+            // $query = $this->db->get("registrasiJF")->num_rows();
+            // return $query;
+
+            $this->db->select('a.*');
+            $this->db->from('registrasiJF a');
+            $this->db->join('partisipasi_JF b', 'b.id_registrasi = a.iduser', 'left'); 
+            $this->db->where('a.email', $email);  
+            $this->db->where('b.id_jf', $idjf);  
+            $query = $this->db->get();
+            return $query->num_rows();
         }
 
         public function cek_nim($nim){
@@ -23,12 +43,32 @@
             return $query;
         }
 
+        public function getperusahaanjf(){
+            $jfke=$this->session->userdata['ses_idjf'];
+            $this->db->select("a.*");
+            $this->db->from("perusahaan_JF as a");
+            $this->db->join('partisipasi_comp_JF b', 'a.id = b.id_perusahaan', 'inner');
+            $this->db->where('a.status', 'aktif');
+            $this->db->where('b.id_jf',$jfke);
+            $this->db->order_by('a.id', 'DESC');
+            return $this->db->get()->result_array();
+        }
+
 
         function jumlahpendaftar(){
             $this->db->select("id");
             $this->db->from("registrasiJF");
             $read =  $this->db->get()->result_array();
             return count($read);
+        }
+
+        function is_comp_join_jf($idcomp){
+            $jfke=$this->session->userdata['ses_idjf'];
+            return $this->db->select("id")
+                ->from("partisipasi_comp_JF")
+                ->where('id_perusahaan',$idcomp)
+                ->where('id_jf',$jfke)
+                ->get()->row();
         }
         
         public function getjfke(){
@@ -44,7 +84,7 @@
             $email=$this->input->post('mail');
             $pass=md5($this->input->post('pass'));
             
-            $this->db->select('a.*');
+            $this->db->select('a.*,b.id_jf as idjf,b.kode_registrasi as kdjf');
             $this->db->from('registrasiJF a');
             $this->db->join('partisipasi_JF b', 'b.id_registrasi = a.iduser', 'left'); 
             $this->db->where('a.email', $email);  
@@ -87,6 +127,19 @@
             return $data = $this->db->select($col)
                   ->get_where($table, $where)
                   ->row();
+        }
+
+        function getpesertabymail($email){
+            $jfke=$this->getjfke();
+            $idjf=$jfke->id;
+            
+            $this->db->select('a.*');
+            $this->db->from('registrasiJF a');
+            $this->db->join('partisipasi_JF b', 'b.id_registrasi = a.iduser', 'left'); 
+            $this->db->where('a.email', $email);  
+            $this->db->where('b.id_jf', $idjf);  
+            $query = $this->db->get();
+            return $query->row();
         }
 
         public function profil($id){
@@ -144,6 +197,16 @@
 
         public function getData($table){
             return $this->db->get($table)->result_array(); 
+        }
+
+    
+        function getlowpercomp($idperusahaan){
+            $this->db->select('*');
+            $this->db->from('lowongan_JF');
+            $this->db->where('status','aktif');
+            $this->db->where('id_jf',$this->session->userdata['ses_idjf']);
+            $this->db->where('id_perusahaan',$idperusahaan);
+            return $this->db->get()->result_array();
         }
 
         function select_data($kolom,$tabel,$kondisi){

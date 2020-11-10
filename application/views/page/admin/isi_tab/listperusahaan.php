@@ -23,8 +23,8 @@ if(isset($_GET['act'])&&$_GET['act']=="edit"){
     
     }else if(isset($_GET['act'])&&$_GET['act']=="pelamar"){
       $id=$_GET['id'];
-      $data['pelamar']=$this->ADM->select_distinct('registrasi_id','pelamarJF',array('perusahaan_id'=>$id),$sortby="",$order="")->result_array();
-      // echo print_r($lowongan);
+      $data['pelamar']=$this->ADM->selectpelamarbycomp($id);
+      // echo print_r($data['pelamar']);
       $data['idperusahaan']=$_GET['id'];
       ?>
       <div class="x_title">
@@ -103,8 +103,8 @@ if(isset($_GET['act'])&&$_GET['act']=="edit"){
                       <?php
                       $no=1;
                       foreach($listperusahaan as $data){
-                        $jmlpelamar=$this->ADM->select_distinct('registrasi_id','pelamarJF',array('perusahaan_id'=>$data['id']),$sortby="",$order="")->num_rows();
-                        $jmllowongan=$this->ADM->select_data('count(id) as jml','lowongan_JF',array('id_perusahaan'=>$data['id']),$sortby="",$order="");
+                        $jmlpelamar=$this->ADM->getpelamarjfpercomp($data['id']);
+                        $jmllowongan=$this->ADM->getlowonganperusahaan($data['id']);
                       ?>
                       <tr>
                       

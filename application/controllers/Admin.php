@@ -5,6 +5,7 @@ class Admin extends CI_Controller {
 	
 	function __construct(){
 		parent::__construct();
+		$this->load->helper('tgl_indo');
 	}
 
 	function index()
@@ -43,6 +44,7 @@ class Admin extends CI_Controller {
 		);
 		
 		$dataLogin=$this->DATA->GetWhere('user_JF',$where)->row();
+		$jfke=$this->DATA->getjfke();
 
 		if(!empty($dataLogin)){
 			$ses_usn=$dataLogin->username;
@@ -54,7 +56,8 @@ class Admin extends CI_Controller {
 				'adm_role'=>'admin',
 				'adm_usn'=>$ses_usn,
 				'adm_nama'=>$ses_nama,
-				'adm_id'=>$ses_id
+				'adm_id'=>$ses_id,
+				'adm_jfid'=>$jfke->id
 			);
 			$this->session->set_userdata($data_session);
 			// end Session
@@ -137,6 +140,7 @@ class Admin extends CI_Controller {
 		if($this->isLoggedIn()){
 		$data['cek']="";
 		$data['content']="";
+		$data['title']="User Management";
 		$data['page']="admin/user_management";
 		$data['users']=$this->ADM->select_data('*','user_JF',array('status'=>'aktif'),$sortby="",$order="");
 		$this->load->view("adm_layout.php",$data);
@@ -149,6 +153,7 @@ class Admin extends CI_Controller {
 		if($this->isLoggedIn()){
 		$data['cek']="";
 		$data['content']="";
+		$data['title']="Layanan";
 		$data['page']="admin/chat";
 		$data['userchat']=$this->ADM->select_data('*','chat',array('receiverid'=>'admin'),'id','desc');
 		$this->load->view("adm_layout.php",$data);
@@ -171,27 +176,56 @@ class Admin extends CI_Controller {
 		redirect($_SERVER['HTTP_REFERER']);
 	}
 
+	function add_joincomp(){
+		if($this->isLoggedIn()){
+			$idcomp=$this->input->post('joincomp');
+			$res = $this->db->insert('partisipasi_comp_JF', array('id_perusahaan'=>$idcomp,'id_jf'=>$this->session->userdata['adm_jfid']));
+			if($res){
+				$this->session->set_flashdata('tambahperusahaan','<div class="alert alert-success alert-dismissable">
+					<strong>Berhasil disimpan</strong>
+				</div>');
+			}else{
+				$this->session->set_flashdata('tambahperusahaan','<div class="alert alert-danger alert-dismissable">
+					<strong>Gagal disimpan</strong>
+				</div>');
+			}
 
+			redirect(base_url().'admin/perusahaan', 'refresh');
+		}
+		else{
+			redirect(base_url(), 'refresh');
+		}
+	}
 
 	function perusahaan($tabs=""){
 		if($this->isLoggedIn()){
 		$data['cek']="";
 		$data['content']="";
+		$data['title']="Manajemen Perusahaan";
 		$data['page']="admin/manajemen_perusahaan";
 		$data['tabs']=!empty($tabs)? $tabs : "listperusahaan";
 		
 		if($data['tabs']=='listperusahaan'){
-		$data['listperusahaan']=$this->ADM->select_data('*','perusahaan_JF',array('status'=>'aktif'),'id','DESC');
+			$data['allcomp']=$this->ADM->getallcomp();
+			$data['listperusahaan']=$this->ADM->getperusahaanjf();
 		}
 		if($data['tabs']=='lowongan'){
-			$data['listperusahaan']=$this->ADM->select_data('id,nama','perusahaan_JF',array('status'=>'aktif'),'id','DESC');
+			$data['listperusahaan']=$this->ADM->getperusahaanjf();
 			$data['bidang']=$this->ADM->select_data('*','bidang_JF',$where="",$sort="",$by="");
-			$data['lowongan']=$this->ADM->select_data('*','lowongan_JF',$where="",'id','DESC');
-		}
 
+			$data['lowongan']=$this->ADM->getlowonganjf();
+			// foreach ($data['listperusahaan'] as $perusaktif){
+			// 	$getlow=$this->ADM->select_data('*','lowongan_JF',array('id_perusahaan'=>$perusaktif['id']),'id','DESC');
+			// 	foreach ($getlow as $low){
+			// 		$data['lowongan'][]=$low;
+			// 	}
+			// }
+			// echo print_r($data['lowongan']);
+		}
+		// echo print_r($data['listperusahaan']);
 		$this->load->view("adm_layout.php",$data);
 		}else{
-			redirect(base_url(), 'refresh');
+			redirect(base_url()."admin");
 		}
 	}
 
@@ -242,6 +276,8 @@ class Admin extends CI_Controller {
 					<strong>Gagal disimpan</strong>
 				</div>');
 			}else{
+				$createdID=$this->ADM->GetWhereDescRow('perusahaan_JF',array('status'=>'aktif'),'id','DESC')->id;
+				$this->db->insert('partisipasi_comp_JF',array('id_perusahaan'=>$createdID,'id_jf'=>$this->session->userdata['adm_jfid']));
 				$this->session->set_flashdata('tambahperusahaan','<div class="alert alert-success alert-dismissable">
 					<strong>Berhasil disimpan</strong>
 				</div>');
@@ -298,6 +334,7 @@ class Admin extends CI_Controller {
 		$data = array(
 			'judul_low' =>$this->input->post('judul'),
 			'id_perusahaan' =>$this->input->post('perusahaan'),
+			'id_jf' =>$this->session->userdata['adm_jfid'],
 			'pendidikan' =>rtrim($pendidikan, ','),
 			'bidang_kerja' =>$bid,
 			'penempatan' =>$this->input->post('penempatan'),
@@ -530,42 +567,46 @@ class Admin extends CI_Controller {
 	function home($tabs=''){
 		if($this->isLoggedIn()){
 		$data['page']="admin/home";
-
+		$data['title']="Dashboard";
 		$data['tabs']=empty($tabs)? "trafik" : $tabs;
 
-		$data['pendaftarudinus']=$this->ADM->count_data('id','registrasiJF',array('golongan'=>'UDINUS'),$sortby="",$order="");
-		$data['pendaftarumum']=$this->ADM->count_data('id','registrasiJF',array('golongan'=>'UMUM'),$sortby="",$order="");
-		$data['pendaftarperhari']=$this->ADM->count_perday('tanggal, COUNT(id) total','registrasiJF',$where="",'tanggal',$limit="",$sortby="",$order="");
-		$data['udinusperhari']=$this->ADM->count_perday('tanggal, COUNT(id) total','registrasiJF',array('golongan'=>'UDINUS'),'tanggal',$limit="",$sortby="",$order="");
-		$data['umumperhari']=$this->ADM->count_perday('tanggal, COUNT(id) total','registrasiJF',array('golongan'=>'UMUM'),'tanggal',$limit="",$sortby="",$order="");
-		$data['komplit']=$this->ADM->select_data('COUNT(id) AS jml','registrasiJF',array('foto !=' => NULL,'ktp !=' => NULL,'cv !=' => NULL,'ijazah !=' => NULL,'transkrip !=' => NULL),$sortby="",$order="");
-		$data['pengunjung']=$this->ADM->select_distinct('id','log',array('status'=>'login'),$sortby="",$order="")->num_rows();
-		$data['totperusahaan']=$this->ADM->count_data('id','perusahaan_JF',array('status'=>'aktif'),$sortby="",$order="");
-		$data['totlowongan']=$this->ADM->count_data('id','lowongan_JF',array('status'=>'aktif'),$sortby="",$order="");
-		$data['totlamaran']=$this->ADM->count_data('id','pelamarJF',$where="",$sortby="",$order="");
-		$data['totpelamar']=$this->ADM->select_distinct('registrasi_id','pelamarJF',$where="",$sortby="",$order="")->num_rows();
+		$data['pendaftarudinus']=$this->ADM->totalpendaftarudinus();
+		$data['pendaftarumum']=$this->ADM->totalpendaftarumum();
+		$data['pendaftarperhari']=$this->ADM->pendaftarperhari();
+		$data['udinusperhari']=$this->ADM->udinusperhari();
+		$data['umumperhari']=$this->ADM->umumperhari();
+		$data['komplit']=$this->ADM->totalfilelengkap();
+		$data['pengunjung']=$this->ADM->totalloggedin();
+		$data['totperusahaan']=$this->ADM->totperusahaan();
+		$data['totlowongan']=$this->ADM->totlowongan();
+		$data['totlamaran']=$this->ADM->totlamaran();
+		$data['totpelamar']=$this->ADM->totalpelamar();
 		
 
 		if($data['tabs']=='trafik'){
-		$data['visperday']=$this->ADM->count_perday('date(waktu) as tgl, COUNT(distinct id) total','log',array('status'=>'login'),'date(waktu)','10','date(waktu)','DESC');
-		$data['regperday']=$this->ADM->count_perday('tanggal, COUNT(id) total','registrasiJF',$where="",'tanggal','10','tanggal','DESC');
-		}else if($data['tabs']=='jobfair'){
-		$data['pelamarudinus']=$this->ADM->getpelamar('distinct','udinus');
-		$data['pelamarumum']=$this->ADM->getpelamar('distinct','umum');
-		$data['visudinus']=$this->ADM->getvisitor('distinct','udinus');
-		$data['visumum']=$this->ADM->getvisitor('distinct','umum');		
-		$data['kunjunganudinus']=$this->ADM->getvisitor($distinct="",'udinus');
-		$data['kunjunganumum']=$this->ADM->getvisitor($distinct="",'umum');
-		$data['lamaranudinus']=$this->ADM->getpelamar($distinct="",'udinus');
-		$data['lamaranumum']=$this->ADM->getpelamar($distinct="",'umum');	
-		}else if($data['tabs']=='distribusi'){
-		$data['perusahaan']=$this->ADM->select_data('id,nama','perusahaan_JF',array('status'=>'aktif'),'nama','ASC');
+		$data['visperday']=$this->ADM->visperday();
+		$data['regperday']=$this->ADM->regperday();
+		}
+		
+		else if($data['tabs']=='jobfair'){
+		$data['pelamarudinus']=$this->ADM->getpelamarudinus();
+		$data['pelamarumum']=$this->ADM->getpelamarumum();
+		$data['visudinus']=$this->ADM->getvisitorudinus();
+		$data['visumum']=$this->ADM->getvisitorumum();		
+		$data['kunjunganudinus']=$this->ADM->getkunjunganudinus();
+		$data['kunjunganumum']=$this->ADM->getkunjunganumum();
+		$data['lamaranudinus']=$this->ADM->totpelamarudinus();
+		$data['lamaranumum']=$this->ADM->totpelamarumum();	
+		}
+		
+		else if($data['tabs']=='distribusi'){
+		$data['perusahaan']=$this->ADM->getperusahaanjf();
 		}
 
 		$this->load->view("adm_layout.php",$data);
 
 		}else{
-			redirect(base_url(), 'refresh');
+			redirect(base_url()."admin");
 		}
 	}
 

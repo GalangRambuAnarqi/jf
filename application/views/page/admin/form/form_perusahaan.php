@@ -2,15 +2,36 @@
 <?php
 if(isset($edit_id)){
 ?>
+<div id="tambahcomp" style="display: block;">
 <form class="form-horizontal form-label-left" enctype="multipart/form-data" action="<?=base_url()?>admin/update_perusahaan" method="post">
 <?php
 }else{
 ?>
+<form class="form-horizontal form-label-left" action="<?=base_url()?>admin/add_joincomp" method="post">
+<div class="form-group row">
+  <label class="control-label col-md-3 col-sm-3 ">Pilih Saja</label>
+  <div class="col-md-6 col-sm-6 ">
+  <select name="joincomp" onchange="checkadd(this);" class="form-control selectpicker" data-live-search="true" required>
+  <option value="">- Pilih -</option>
+  <option data-tokens="-1" value="tambah2">+ Tambah</option>
+    <?php 
+    foreach ($allcomp as $data){
+      ?>
+          <option data-tokens="<?=$data['id']?>" value="<?=$data['id']?>" <?=isset($edit_perusahaan)&& $edit_perusahaan==$data['id'] ? "selected" : "";?>><?=$data['nama']?></option>
+      <?php
+    }?>
+  </select>
+  <button id="btnjoin" type="submit" class="btn btn-primary">Tambah</button>
+  </div>
+</div>
+</form>
+<div id="tambahcomp" style="display: none;">
 <form class="form-horizontal form-label-left" enctype="multipart/form-data" action="<?=base_url()?>admin/tambah_perusahaan" method="post">
 <?php
 }
 ?>
 
+<hr>
 <input type="hidden" name="id" id="id" value="<?=isset($edit_id)? $edit_id : "";?>">
 <div class="form-group row">
   <label class="control-label col-md-3 col-sm-3 ">Nama Perusahaan</label>
@@ -77,7 +98,19 @@ if(isset($edit_id)){
 <button type="submit" class="btn btn-primary">Simpan</button>
   </div>
 </div>
-
 </div>
 
+
 <form>
+</div>
+<script>
+function checkadd(that) {
+    if (that.value == "tambah2") {
+        document.getElementById("tambahcomp").style.display = "block";
+        document.getElementById("btnjoin").style.display = "none";
+    } else {
+        document.getElementById("tambahcomp").style.display = "none";
+        document.getElementById("btnjoin").style.display = "block";
+    }
+}
+</script>
