@@ -65,15 +65,36 @@ class Peserta extends CI_Controller {
 
 			$this->db->insert('log',$data_log);
 			// end insert log
-			redirect(base_url()."peserta",'refresh');
+		
 		}else{
-			$this->session->set_flashdata(
-				'eror','<div class="alert alert-danger"><h4>
-				Email/Password Salah!!!</h4></div>'
-			);
-			redirect(base_url()."peserta");
+			$isPesertaLama=$this->DATA->cekLoginLama();
+			if(!empty($isPesertaLama)){
+				// $jfke=$this->DATA->getjfke();
+                // $kodejf=$jfke->kode. str_pad($isPesertaLama->iduser,5,"0",STR_PAD_LEFT);                
+                // $this->db->insert('partisipasi_JF',array(
+                // 'id_registrasi'=>$isPesertaLama->iduser,
+                // 'id_jf'=>$jfke->id,
+				// 'kode_registrasi'=>$kodejf));
+				$data_session=array(
+					'ses_status'=>'login',
+					'ses_email'=>$isPesertaLama->email,
+					'ses_nama'=>$isPesertaLama->nama,
+					'ses_id'=>$isPesertaLama->iduser,
+					// 'ses_kdjf'=>$jfke->kode,
+					// 'ses_idjf'=>$jfke->id
+				);
+				$this->session->set_userdata($data_session);
+
+            }else{
+				$this->session->set_flashdata(
+					'eror','<div class="alert alert-danger"><h4>
+					Email/Password Salah!!!</h4></div>'
+				);    
+            }
+			// redirect(base_url()."peserta");
 			// echo "eror";
 		}
+		redirect(base_url()."peserta",'refresh');
 	}
 
 	// function profil(){
@@ -332,7 +353,11 @@ class Peserta extends CI_Controller {
 		$where=array(
 			'status'=>'aktif'
 		);
-		$data['perusahaan']=$this->DATA->getperusahaanjf();
+		if(!empty($this->session->userdata['ses_idjf'])||!empty($this->session->userdata['ses_kdjf'])){
+			$data['perusahaan']=$this->DATA->getperusahaanjf();
+		}else{
+			$data['perusahaan']=array();
+		}
 		$data['judul']="Dashboard";
 		$data['isi']=$this->get_peserta();
 		$data['univ']=$this->DATA->date_univ($data['isi']->lulusan);

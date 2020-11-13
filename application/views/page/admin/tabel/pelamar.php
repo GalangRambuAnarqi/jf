@@ -53,7 +53,7 @@
                 <td><?=$no++?></td>
                 <td><?=$datapendaftar[0]['nama']?></td>
                 <td>
-                <a href="<?=base_url()?>peserta/downloadAll/<?=$datapendaftar[0]['id']?>"><font color=green><i class="fa fa-download"> Unduh</i></font></a>
+                <a href="<?=base_url()?>peserta/downloadAll/<?=$datapendaftar[0]['iduser']?>"><font color=green><i class="fa fa-download"> Unduh</i></font></a>
                 </td>
                 <td><?=$datapendaftar[0]['email']?></td>
                 <td><?=$datapendaftar[0]['hp']?></td>

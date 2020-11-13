@@ -94,6 +94,21 @@
             return $query->row();
         }
 
+        function cekLoginLama(){
+            // $jfke=$this->getjfke();
+            // $idjf=$jfke->id;
+            
+            $email=$this->input->post('mail');
+            $pass=md5($this->input->post('pass'));
+
+            return $this->db->select('*')
+            ->from('registrasiJF')
+            ->where('email', $email)
+            ->where('pass', $pass)
+            ->get()
+            ->row();
+        }
+
         function create($tabel,$create){
             $this->db->insert($tabel, $create);
             return $this->db->insert_id();

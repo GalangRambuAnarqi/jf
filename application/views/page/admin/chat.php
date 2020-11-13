@@ -56,8 +56,8 @@
                               if(!empty($cp)){
                                 echo "<h3>".$cp->nama."</h3>";  
                               }else{
-                                echo "<h3>".$data."</h3>";
-                                echo "<p>".$this->DATA->getWhereRow('nama','registrasiJF',array('id'=>$data))->nama."</p>";
+                                // echo "<h3>".$data."</h3>";
+                                echo "<h3>".$this->DATA->getWhereRow('nama','registrasiJF',array('iduser'=>$data))->nama."</h3>";
                               }
                               ?>
                             </div>
@@ -93,7 +93,7 @@ if(isset($_GET['read'])){
 
   <div class="col-md-12">
     <?php
-    $nama=$this->DATA->getWhereRow('nama','registrasiJF',array('id'=>$id));
+    $nama=$this->DATA->getWhereRow('nama','registrasiJF',array('iduser'=>$id));
     if(empty($nama)){
     $nama=$this->DATA->getWhereRow('nama','perusahaan_JF',array('id'=>$id));
     }

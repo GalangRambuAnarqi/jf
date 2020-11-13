@@ -291,6 +291,17 @@
             ->get()->result_array();
         }
 
+        function getlistlowcomp($idperusahaan){
+            return $this->db->select('a.*')
+            ->from('lowongan_JF a')
+            ->join('partisipasi_comp_JF as c', 'c.id_perusahaan=a.id_perusahaan')
+            ->where('c.id_jf',$this->session->userdata['adm_jfid'])
+            ->where('a.id_perusahaan',$idperusahaan)
+            ->where('a.id_jf',$this->session->userdata['adm_jfid'])
+            ->order_by('a.id','DESC')
+            ->get()->result_array();
+        }
+
 
         
         function getlowonganjf(){
@@ -478,9 +489,12 @@
         }
 
         function getpelamarjfperlow($idlow){
-            return $this->db->select('id')
-            ->from('pelamarJF')
-            ->where('low_id',$idlow)
+            return $this->db->distinct()
+            ->select('a.id')
+            ->from('pelamarJF a')
+            // ->join('lowongan_JF b','a.low_id=b.id','inner')
+            ->where('a.low_id',$idlow)
+            // ->where('b.id_jf',$this->session->userdata['adm_jfid'])
             // ->where('a.id_jf',$this->session->userdata['adm_jfid'])
             ->get()->num_rows();
         }

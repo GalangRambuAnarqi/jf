@@ -300,8 +300,8 @@ class Admin extends CI_Controller {
 			}
 			
 			$where = array('id' => $id);
-			$res=$this->ADM->hapus_data($where,'perusahaan_JF');
-
+			// $this->ADM->hapus_data($where,'perusahaan_JF');
+			$this->ADM->hapus_data(array('id_perusahaan'=>$id,'id_jf'=>$this->session->userdata['adm_jfid']),'partisipasi_comp_JF');
 
 			$this->session->set_flashdata('hapusperusahaan','<div class="alert alert-success alert-dismissable"><strong>Berhasil dihapus</strong></div>');
 			redirect(base_url().'admin/perusahaan', 'refresh');

@@ -36,7 +36,7 @@ if(isset($_GET['act'])&&$_GET['act']=="edit"){
     }
     else if(isset($_GET['act'])&&$_GET['act']=="lowongan"){
       $id=$_GET['id'];
-    	$data['lowongan']=$this->ADM->select_data('*','lowongan_JF',array('id_perusahaan'=>$id),'id','DESC');
+    	$data['lowongan']=$this->ADM->getlistlowcomp($id);
       // echo print_r($lowongan);
       ?>
       <div class="x_title">

@@ -358,7 +358,7 @@ if (notAccepted || prevAcceptedExpired) {
                       <?php
                        $no=1;
                          foreach ($perusahaan as $row) {
-                          $totaljob=$this->ADM->select_data('count(id) as jml','lowongan_JF',array('id_perusahaan'=>$row['id']),$sortby="",$order="");
+                          $totaljob=$this->ADM->totaljob($row['id']);
                             // echo "<li>".$row['name']."</li>";
                             ?>
                             <tr>

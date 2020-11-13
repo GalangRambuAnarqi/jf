@@ -95,8 +95,8 @@ class Perusahaan extends CI_Controller {
 		$data['totlamaran']=$this->ADM->count_data('id','pelamarJF',array('perusahaan_id'=>$id),$sortby="",$order="");
 		$data['lowongan']=$this->ADM->select_data('id,judul_low','lowongan_JF',array('id_perusahaan'=>$id,'status'=>'aktif'),'id','ASC');
 		$sudahlihatiklan=$this->DATA->getWhereRow('id','log_iklan',array('id_iklan'=>2,'id_viewer'=>$this->session->userdata['adm_id'],'status'=>1));
-		$data['lihatiklan']=!empty($sudahlihatiklan)?1:0;
-		// $data['lihatiklan']=1;
+		// $data['lihatiklan']=!empty($sudahlihatiklan)?1:0;
+		$data['lihatiklan']=1;
 		$this->load->view("adm_layout.php",$data);
 		}else{
 			redirect(base_url(), 'refresh');
